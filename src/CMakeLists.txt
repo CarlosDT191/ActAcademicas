@@ -1,4 +1,4 @@
-add_subdirectory(actacademica)
+add_subdirectory(act_academica)
 add_subdirectory(app)
 add_subdirectory(listaasistencia)
 add_subdirectory(mailing)
