@@ -1,5 +1,5 @@
 add_subdirectory(act_academica)
 add_subdirectory(app)
-add_subdirectory(listaasistencia)
+add_subdirectory(lista_asistencia)
 add_subdirectory(mailing)
 add_subdirectory(usuarios)
