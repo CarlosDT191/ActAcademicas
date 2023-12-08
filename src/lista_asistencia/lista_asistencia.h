@@ -7,8 +7,9 @@
 #include <string>
 #include "act_academica.h"
 #include "alumno.h"
+#include <iostream>
 
-class lista_asistencia{
+class Lista_asistencia{
     private:
         int id_academica_;
         int aforo_restante_;
