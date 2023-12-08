@@ -3,14 +3,14 @@
 #include <iostream>
 #include <sstream>
 
-act_academica::act_academica(std::string titulo, std::string descripcion, float precio, int aforomax){
+Act_academica::act_academica(std::string titulo, std::string descripcion, float precio, int aforomax){
     titulo_=titulo;
     descripcion_=descripcion;
     precio_= precio;
     aforomax_=aforomax;
 }
 
-act_academica::SetId(){
+void Act_academica::SetId(){
     std::ifstream DataAct("../BD/ActAcademicas.txt");
     if(DataAct.is_open()){
         std::string linea;
