@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-class act_academica{
+class Act_academica{
     private:
         int id_;
         std::string titulo_;
