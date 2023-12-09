@@ -13,7 +13,7 @@ class Usuario{
         std::string correo_;
         std::string password_;
         int rol_;
-        std::string carrera;
+        std::string carrera_;
     public:
         std::string GetCorreo(){return correo_;}
         std::string GetPassword(){return password_;}
