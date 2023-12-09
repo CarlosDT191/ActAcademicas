@@ -21,11 +21,11 @@ class Act_academica{
         int GetAforoMax(){return aforomax_;}
         //Setters
         void SetId();
-        void SetTitulo(std::string titulo){titulo_= titulo;}
-        void SetDesc(std::string descripcion){descripcion_= descripcion;}
-        void SetPrecio(float precio){precio_= precio;}
-        void SetAforoMax(int aforomax){aforomax_= aforomax;}
+        void SetCarrera(int carrera){carrera_= carrera;}
         //Funciones Propias
+        void RellenarDatosT();//Rellena los atributos de la clase leidos por texto
+        bool RellenarDatosFAc(int id_act);//Rellena la clase con el identificador id_act del fichero ActAcademicas.txt 
+        bool RellenarDatosCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt
 };
 
 
