@@ -11,8 +11,9 @@ class Act_academica{
         std::string descripcion_;
         float precio_;
         int aforomax_;
+        std::string carrera_;
     public:
-        act_academica(std::string titulo, std::string descripcion, float precio, int aforomax);
+        Act_academica(int id_act);
         //Getters
         int GetId(){return id_;}
         std::string GetTitulo(){return titulo_;}
@@ -26,6 +27,8 @@ class Act_academica{
         void RellenarDatosT();//Rellena los atributos de la clase leidos por texto
         bool RellenarDatosFAc(int id_act);//Rellena la clase con el identificador id_act del fichero ActAcademicas.txt 
         bool RellenarDatosFCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt
+        void ImprimirFAc();//Imprime todo el fichero "ActAcademicas.txt"
+        bool ModificarActF(std::string direccion);//Modifica la actividad academica del fichero
 };
 
 

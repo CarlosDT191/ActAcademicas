@@ -4,6 +4,10 @@
 #include <sstream>
 #include <string>
 
+Act_academica::Act_academica(int id_act){
+    id_=id_act;
+}
+
 void Act_academica::SetId(){
     std::ifstream DataAct("../BD/ActAcademicas.txt");
     if(DataAct.is_open()){
@@ -27,28 +31,28 @@ void Act_academica::SetId(){
 void Act_academica::RellenarDatosT(){
     std::string titulo, descripcion;
     float precio;
-    int aforomax, valor=0;
+    int aforomax, valor=1, fin=0;
     while(valor!=5){
         switch(valor){
             case 1:
                 std::cout<<"Introduzca el titulo de la actividad:\n";
                 std::cin>>titulo;
                 titulo_= titulo;
-                if(valor!=0){
+                if(valor==1 && fin!=0){
                     break;
                 }
             case 2:
                 std::cout<<"\nIntroduzca una breve descripcion:\n";
                 std::cin>>descripcion;
                 descripcion_=descripcion;
-                if(valor!=0){
+                if(valor!=1){
                     break;
                 }
             case 3:
                 std::cout<<"\nIntroduzca el precio de la actividad:\n";
                 std::cin>>precio;
                 precio_=precio;
-                if(valor!=0){
+                if(valor!=1){
                     break;
                 }
             case 4:
@@ -66,8 +70,9 @@ void Act_academica::RellenarDatosT(){
 
         if(valor!=5){
             std::cout<<"¿Que desea realizar ahora?\n1. Editar titulo\n 2. Editar descripcion\n";
-            std::cout<<" 3. Editar precio\n 4. Editar aforo maximo\n 5. Salir\n";
+            std::cout<<" 3. Editar precio\n 4. Editar aforo maximo\n 5. Guardar cambios\n";
             std::cin>>valor;
+            fin= 1;
         }
     }
 }
@@ -86,16 +91,21 @@ bool RellenarDatosFAc(int id_act){
             if(std::getline(ss, l_identific, '|')){
                 if(l_identific==id_act){
                     id_=id_act;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_titulo, '|');
                     titulo_= l_titulo;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_descripcion, '|');
                     descripcion_= l_descripcion;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_precio, '|');
                     precio_= l_precio;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_aforo, '|');
                     aforomax_= l_aforo;
+                    ss.ignore(1, '|');
                     std::getline(ss,l_carrera, '|');
-                    carrera_= l_arrera;
+                    carrera_= l_carrera;
                     DataAct.close();
                     return true;
                 }
@@ -120,12 +130,16 @@ bool RellenarDatosFCom(int id_act){
             if(std::getline(ss, l_identific, '|')){
                 if(l_identific==id_act){
                     id_=id_act;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_titulo, '|');
                     titulo_= l_titulo;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_descripcion, '|');
                     descripcion_= l_descripcion;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_precio, '|');
                     precio_= l_precio;
+                    ss.ignore(1,'|');
                     std::getline(ss,l_aforo, '|');
                     aforomax_= l_aforo;
                     DataAct.close();
@@ -136,5 +150,36 @@ bool RellenarDatosFCom(int id_act){
         DataAct.close();
         return false;
     }
+    return false;
+}
+
+void Act_academica::ImprimirFAc(){
+    std::ifstream DataAct("../BD/ActAcademicas.txt");
+    std::string linea;
+    if(DataAct.is_open()){
+        std::getline(DataAct, linea);
+        std::cout<<linea<<"\n";
+    }
+}
+
+bool Act_academica::ModificarActF(std::string direccion){
+    std::fstream DataAct(direccion);
+    std::string linea;
+    std::getline(DataAct,linea)
+    while(std::getline(DataAct,linea)){
+        std:istringstream ss(linea);
+        int id;
+        ss.ignore(1);
+        std::getline(ss, id, '|');
+        if(id_==id){
+            ss.str("");
+            ss<<<<"|"<<id_<<"|"<<titulo_<<"|"<<descripcion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+            DataAct.seekp(DataAct.tellg());
+            DataAct<<ss;
+            DataAct.close();
+            return true;
+        }
+    }
+    DataAct.close();
     return false;
 }
