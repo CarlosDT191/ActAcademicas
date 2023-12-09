@@ -107,7 +107,7 @@ bool RellenarDatosFAc(int id_act){
     return false;
 }
 
-bool RellenarDatosCom(int id_act){
+bool RellenarDatosFCom(int id_act){
     std::ifstream DataAct("../BD/comunicacion.txt");
     if(DataAct.is_open()){
         std::string linea;

@@ -1,8 +1,9 @@
-#include "prototipos.h"
+#include "app.h"
 #include "usuario.h"
 #include "organizador.h"
 #include "director_acad.h"
 #include "alumno.h"
+#include "act_academica.h"
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -48,7 +49,7 @@ Director_acad ConvertToDir(Usuario* user){
     }
 }
 
-void MenuDetalleAct(std::string estado, Alumno &alum){
+void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
     int valor=0;
     while(valor!=3){
         if(estado=="Nada"){
@@ -56,7 +57,7 @@ void MenuDetalleAct(std::string estado, Alumno &alum){
             std::cin>>valor;
             switch(valor){
                 case 1:
-                    alum.CambiarEstado(0);//NADA --->PREINSCRITO
+                    alum.CambiarEstado(0, id_act);//NADA --->PREINSCRITO
                 case 2:
                     valor++;
                     break;
@@ -70,9 +71,13 @@ void MenuDetalleAct(std::string estado, Alumno &alum){
             std::cin>>valor;
             switch(valor){
                 case 1:
-                    alum.CambiarEstado(1);//PREINSCRITO ---> NADA
+                    if(alum.CambiarEstado(1, id_act)){//PREINSCRITO ---> NADA
+                        std::cout<<"Estado cambiado correctamente\n";
+                    }
                 case 2:
-                    alum.CambiarEstado(2);//PREINSCRITO ---> INSCRITO
+                    if(alum.CambiarEstado(2, id_act)){//PREINSCRITO ---> INSCRITO
+                        std::cout<<"Estado cambiado correctamente\n";
+                    }
                 case 3:
                     break;
                 default:
@@ -83,15 +88,13 @@ void MenuDetalleAct(std::string estado, Alumno &alum){
 }
 
 
-
-
-void menuAlumno(alumno &alum){
+void menuAlumno(Alumno &alum){
     std::cout<<"Bienvenido de vuelta "<<alum.GetCorreo()<<"\n";
     int valor_entrada=0;
-    std::cin>>valor_entrada;
     while(valor_entrada!=5){
         std::cout<<"Seleccione una opcion:\n 1. Ver bandeja\n 2. Acceder a actividad academica\n";
         std::cout<<" 3. Ver pre-inscripciones\n 4. Ver inscripciones\n 5. Salir\n";
+        std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
                 std::string directorio= "../BD/";
@@ -112,7 +115,7 @@ void menuAlumno(alumno &alum){
                 std::cin>>id_actividad;
                 alum.verDetalles(id_actividad);
                 std::string estado=alum.verEstadoAct(id_actividad);
-                MenuDetalleAct(estado, alum);
+                MenuDetalleAct(estado, alum, id_actividad);
                 break;        
             case 3:
                 if(!alum.verPreInscrip()){
@@ -124,10 +127,73 @@ void menuAlumno(alumno &alum){
                     std::cout<<"No hay ninguna inscripcion\n";
                 }
                 break;
+            case 5:
+                std::cout<<"Saliendo del programa\n";
+                break;
             default:
-                std::cout<<"Ha escrito un valor incorrecto\n";
+                std::cout<<"Ha escrito un valor incorrecto, vuelva a intentarlo\n";
         }
     }
 
 }
 
+
+void menuDirector_Acad(Director_acad &dir){
+    std::cout<<"Bienvenido de vuelta "<<dir.GetCorreo()<<"\n";
+    int valor_entrada=0;
+    while(valor_entrada!=3){
+        std::cout<<"Seleccione una opcion:\n 1. Ver actividades academicas sin confirmar\n";
+        std::cout<<" 2. Confirmar y enviar actividad academica\n 3. Salir\n";
+        std::cin>>valor_entrada;
+        switch(valor_entrada){
+            case 1:
+                dir.VerActPen();
+                break;
+            case 2:
+                int id_act;
+                std::cout<<"Seleccione el id de la actividad a confirmar: \n";
+                std::cin>>id_act;
+                if(dir.ConfirmarAct(int id_act)){
+                    std::cout<<"Actividad confirmada con exito\n";
+                }
+                else{
+                    std::cout<<"Error al confirmar la actividad\n";
+                }
+                break;
+            case 3:
+                std::cout<<"Saliendo del programa\n";
+                break;
+            default:
+                std::cout<<"Ha escrito un valor incorrecto, vuelva a intentarlo\n";
+        }
+    }
+}
+
+
+void menuOrganizador(Organizador &org){
+    std::cout<<"Bienvenido de vuelta "<<org.GetCorreo()<<"\n";
+    int valor_entrada=0;
+    while(valor_entrada!=4){
+        std::cout<<"Seleccione una opcion:\n 1. Crear actividad academica nueva\n";
+        std::cout<<" 2. Ver actividades academicas creadas sin confirmar\n 3. Ver actividades academicas enviadas\n";
+        std::cout<<" 4. Salir\n";
+        std::cin>>valor_entrada;
+        switch(valor_entrada){
+            case 1:
+                org.CrearActAcademica();
+                break;
+            case 2:
+                org.VerActAcademicasNoConf();
+                break;
+            case 3:
+                org.VerActAcademicasConf();
+                break;
+            case 4:
+                std::cout<<"Saliendo del programa\n";
+                break;
+            default:
+                std::cout<<"Ha escrito un valor incorrecto, vuelva a intentarlo\n";
+        }
+    }
+
+}
