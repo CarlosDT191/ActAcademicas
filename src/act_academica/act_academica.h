@@ -4,15 +4,15 @@
 #include <iostream>
 #include <string>
 
-class act_academica{
+class Act_academica{
     private:
         int id_;
         std::string titulo_;
         std::string descripcion_;
+        std::string carrera_;
         float precio_;
         int aforomax_;
     public:
-        act_academica(std::string titulo, std::string descripcion, float precio, int aforomax);
         //Getters
         int GetId(){return id_;}
         std::string GetTitulo(){return titulo_;}
@@ -21,11 +21,11 @@ class act_academica{
         int GetAforoMax(){return aforomax_;}
         //Setters
         void SetId();
-        void SetTitulo(std::string titulo){titulo_= titulo;}
-        void SetDesc(std::string descripcion){descripcion_= descripcion;}
-        void SetPrecio(float precio){precio_= precio;}
-        void SetAforoMax(int aforomax){aforomax_= aforomax;}
+        void SetCarrera(int carrera){carrera_=carrera;}
         //Funciones Propias
+        void RellenarDatosT();//Recoge datos de la interfaz con el usuario y los guarda en la clase
+        bool RellenarDatosFAc(int id_act);//Recoge los datos del del fichero ActAcademicas y los guarda en la clase
+        bool RellenarDatosCom(int id_act);//Recoge los datos del fichero comunicacion y los guarda en la clase
 };
 
 
