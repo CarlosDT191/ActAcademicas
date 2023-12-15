@@ -1,1 +1,2 @@
 |ID|   TITULO  |      DESCRIPCION       |PRECIO|AFORO|CARRERA|
+|1|Conferencia Erasmus|Ponentes: Maria Dolores Sanchez. Fecha: 15/10/23. Ubicacion: Aula Magna Aulario Aberrores|1.50|200|todas|
