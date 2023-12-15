@@ -11,35 +11,21 @@ void Organizador::CrearActAcademica()
     a1.RellenarDatos();
 }
 
-bool Organizador::ModificarActAcademica(int id_ac)
+bool Organizador::ModificarActAcademica(int id_act)
 {
-    Act_academica a1(id_ac);
-    std::cout << "Modificando actividad académica con ID " << id_Ac << ":\n";
+    Act_academica a1(id_act);
+    std::cout << "Modificando actividad académica con ID " << id_act << ":\n";
     a1.RellenarDatosT();
-    if (!(a1.ModificarActF("../BD/comunicacion.txt")))
-    {
-        if (!(a1.ModificarActF("../BD/comunicacion.txt")))
-        {
-            return false;
-            else
-            {
-                return true;
-            }
-        }
-    }
-    else
-    {
-        return true;
-    }
+    return a1.ModificarActF("../BD/comunicacion.txt");
 }
 
 bool Organizador::VerActAcademicasConf()
 {
-    std::ifstream archivo("../BD/comunicacion.txt");
+    std::ifstream archivo("../BD/ActAcademicas.txt");
 
     if (!archivo.is_open())
     {
-        std::cerr << "Error al abrir el archivo 'comunicacion.txt'\n";
+        std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
         return false;
     }
 
@@ -49,7 +35,7 @@ bool Organizador::VerActAcademicasConf()
     while (getline(archivo, linea))
     {
         ++contador;
-        std::cout << "Actividad " << contador << ": " << linea << "\n";
+        std::cout <<linea << "\n";
     }
 
     archivo.close();
@@ -77,7 +63,7 @@ bool VerActAcademicasNoConf() {
 
     while (getline(archivo, linea)) {
         ++contador;
-        std::cout << "Actividad " << contador << ": " << linea << "\n";
+        std::cout <<linea << "\n";
     }
 
     archivo.close();
