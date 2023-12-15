@@ -1,0 +1,8 @@
+|      USER     |PASSWORD |ROL| CARRERA |
+|p12tofrc@uco.es|patata123|1|mecanica|
+|i22grrud@uco.es|traemeotra|1|informatica|
+|i22lumas@uco.es|juanmaventeya|1|informatica|
+|e22calod@uco.es|cuentanueva|1|electronica|
+|f22paror@uco.es|password123|1|forestal|
+|dirmatof@uco.es|directorsoy|2|nada|
+|orgmajog@uco.es|organizadorsoy|3|nada|
