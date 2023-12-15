@@ -26,9 +26,9 @@ class Act_academica{
         //Funciones Propias
         void RellenarDatosT();//Rellena los atributos de la clase leidos por texto
         bool RellenarDatosFAc(int id_act);//Rellena la clase con el identificador id_act del fichero ActAcademicas.txt 
-        bool RellenarDatosFCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt
-        void ImprimirFAc();//Imprime todo el fichero "ActAcademicas.txt"
+        bool RellenarDatosFCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt        
         bool ModificarActF(std::string direccion);//Modifica la actividad academica del fichero
+        void ImprimirDatos();//Imprime los datos por pantalla
 };
 
 
