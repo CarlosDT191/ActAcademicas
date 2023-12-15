@@ -21,7 +21,6 @@ class Usuario{
         std::string GetCarrera(){return carrera_;}
 
         bool Login();
-        bool Register();
 };
 
 
