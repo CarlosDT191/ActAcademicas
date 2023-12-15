@@ -17,8 +17,9 @@ Organizador ConvertToOrg(Usuario* user);
 Director_acad ConvertToDir(Usuario* user);
 
 void MenuDetalleAct(std::string estado, Alumno &alum, int id_act);
+void MenuDetalleControlInscrip(Director_acad &dir);
 void menuAlumno(Alumno &alum);
-void menuOrganizador(Organizador &org);
 void menuDirector_Acad(Director_acad &dir);
+void menuOrganizador(Organizador &org);
 
 #endif
