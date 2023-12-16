@@ -11,12 +11,14 @@
 
 class Lista_asistencia{
     private:
-        int id_academica_;
+        int id_act_;
         int aforo_restante_;
         std::vector<Alumno> vec_alum_;
     public:
         Lista_asistencia(int id_academica){id_academica_=id_academica;}
         int GetId_academica(){return id_academica_;}
+        bool RecogerListaAct(int id_act);
+        bool AnadirAlumno(int id_act, std::string correo);
 };
 
 #endif //LISTAASISTENCIA_H
