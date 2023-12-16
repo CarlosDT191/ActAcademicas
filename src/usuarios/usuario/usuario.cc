@@ -21,7 +21,7 @@ bool Usuario::Login(){
             //Abrir el archivo de cuentas
             std::ifstream cuentasFile("../BD/cuentas.txt");
             if (!cuentasFile.is_open()) {
-                std::cerr << "Error al abrir el archivo de cuentas." << std::endl;
+                std::cout << "Error al abrir el archivo de cuentas." << std::endl;
                 return false;
             }
 
