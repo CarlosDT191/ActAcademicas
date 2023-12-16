@@ -1,10 +1,7 @@
 #ifndef ORGANIZADOR_H_
 #define ORGANIZADOR_H_
-#include "string"
-#include "vector"
 #include "usuarios.h"
 #include "act_academica"
-
 #include <iostream>
 #include <vector>
 #include <string>
