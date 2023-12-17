@@ -20,6 +20,11 @@ class Usuario{
         int GetRol(){return rol_;}
         std::string GetCarrera(){return carrera_;}
 
+        void SetCorreo(std::string correo){correo_ = correo;}
+        void SetPassword(std::string password){password_ = password;}
+        void SetRol(int rol){rol_ = rol;}
+        void SetCarrera(std::string carrera){carrera_ = carrera}
+
         bool Login();
 };
 

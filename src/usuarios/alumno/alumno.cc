@@ -204,14 +204,60 @@ bool CambiarEstado(int state, int id_act){
 }
 
 bool RellenarF(std::string correo){
+    std::ifstream CuentasFile(cuentas.txt);
+    if (!CuentasFile.is_open()) {
+        std::cout << "Error al abrir el archivo de cuentas." << std::endl;
+        return false;
+    }
+    std::string line;
+    std::getline(CuentasFile, line);
+    while (std::getline(CuentasFile, line)) {
+        std::istringstream ss(line);
+        ss.ignore(1);
+        std::getline(ss, correo_comprobar, '|');
+        if(correo_comprobar = correo){
+            SetCorreo(correo_comprobar);
+            std::string password;
+            std::getline(ss, password, '|');
+            SetPassword(password);
+            std::string rol_string;
+            std::getline(ss, rol_string, '|');
+            int rol_int = std::stoi(rol_string);
+            SetRol(rol_int);
+            std::string carrera;
+            std::getline(ss, carrera, '|');
+            SetCarreral(carrera);
+            return true;
+        }    
+    }              
+}
+
+std::vector <int> VectorIdsInscrip(){
+    std::string correo;
+    correo = GetCorreo();
+    correo.erase(correo.lenght()-7);
+    correo = "../BD/" + correo + ".txt";
     std::ifstream BandejaPersonalFile(correo);
-        int contador = 0;
-        if (!BandejaPersonalFile.is_open()) {
-            std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-            return false;
+    if (!BandejaPersonalFile.is_open()) {
+        std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
+        return false;
+    }
+    std::string linea;
+    std::getline(BandejaPersonalFile, linea);
+    while (std::getline(BandejaPersonalFile, linea)) {
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::getline(ss, id_actacademica, '|'); 
+        size_t primera_pos = linea.find('|');
+        size_t segunda_pos = linea.find('|', primera_pos + 1);
+        size_t tercera_pos = linea.find('|', segunda_pos + 1);
+        size_t cuarta_pos = linea.find('|', tercera_pos + 1);
+        size_t longitud_cadena = cuarta_pos - tercera_pos - 1;
+        std::string estado = linea.substr(tercera_pos + 1, longitud_cadena);
+        if(estado = "inscrito en espera"){
+            VectorIdsInscrip.push_back(id_actacademica);
         }
-        std::string line;
-        std::getline(BandejaPersonalFile, line);
-        while (std::getline(BandejaPersonalFile, line)) {
-                
+    }
+    return VectorIdsInscrip;
+    BandejaPersonalFile.close();
 }
