@@ -138,8 +138,12 @@ void MenuDetalleControlInscrip(Director_acad &dir){
                 }//Si hay fallo al recorrer alguno de estos vectores se puede cambiar funcion ConfirmarInscripcion
 
                 if(id_encontrado){//La inscripcion en espera a confirmar es correcta
-                    dir.ConfirmarInscripcion(nombre, opcion);
-                    std::cout<<"Inscripcion confirmada correctamente\n";
+                    if(dir.ConfirmarInscripcion(nombre, opcion)){
+                        std::cout<<"Inscripcion confirmada correctamente\n";
+                    }
+                    else{
+                        std::cout<<"Error al confirmar inscripcion\n";
+                    }
                     error= true;
                 }
 

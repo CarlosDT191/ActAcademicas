@@ -1,6 +1,5 @@
 #ifndef ACTACADEMICA_H
 #define ACTACADEMICA_H
-#include "lista_asistencia.h"
 #include <iostream>
 #include <string>
 
@@ -13,7 +12,7 @@ class Act_academica{
         int aforomax_;
         std::string carrera_;
     public:
-        Act_academica(int id_act);
+        Act_academica(int id_act=0);
         //Getters
         int GetId(){return id_;}
         std::string GetTitulo(){return titulo_;}
@@ -27,7 +26,7 @@ class Act_academica{
         void RellenarDatosT();//Rellena los atributos de la clase leidos por texto
         bool RellenarDatosFAc(int id_act);//Rellena la clase con el identificador id_act del fichero ActAcademicas.txt 
         bool RellenarDatosFCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt        
-        bool ModificarActF(std::string direccion);//Modifica la actividad academica del fichero
+        bool ModificarActFCom();//Modifica la actividad academica del fichero de comunicacion
         void ImprimirDatos();//Imprime los datos por pantalla
 };
 

@@ -13,7 +13,7 @@ class Lista_asistencia{
     private:
         int id_act_;
         int aforo_restante_;
-        std::vector<Alumno> vec_alum_;
+        std::vector<std::string> vec_alum_;
     public:
         Lista_asistencia(int id_academica){id_academica_=id_academica;}
         int GetId_academica(){return id_academica_;}
