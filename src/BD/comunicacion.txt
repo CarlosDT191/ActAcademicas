@@ -1,1 +1,2 @@
 |ID|   TITULO  |      DESCRIPCION       |PRECIO|AFORO|CARRERA|
+|2|Ramas informatica|DESCRIPCION|3.50|100|informatica|
