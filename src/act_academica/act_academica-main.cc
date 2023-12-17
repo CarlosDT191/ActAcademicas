@@ -8,6 +8,7 @@ int main(){
     std::cout<<"Id nuevo: "<<a1.GetId()<<"\n";
 
     a1.RellenarDatosT();
+    a1.SetCarrera("todos");
     a1.ImprimirDatos();
 
     if(a1.RellenarDatosFAc(1)){
@@ -18,5 +19,8 @@ int main(){
         a1.ImprimirDatos();
     }
 
+    a1.SetCarrera("mecanica");
+    a1.ModificarActFCom();
+    
     return 0;
 }

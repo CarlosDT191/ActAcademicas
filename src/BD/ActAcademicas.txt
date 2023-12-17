@@ -1,2 +1,2 @@
-|ID|   TITULO  |      DESCRIPCION       |PRECIO|AFORO|CARRERA|
-|1|Conferencia Erasmus|DESCRIPCION|1.50|200|todas|
+|ID|   TITULO  |         PONENTES         | FECHA  |  UBICACION  |PRECIO|AFORO|CARRERA|
+|1|ERASMUS|Maria_Gonzalez Pablo_Martinez Manuel_Bravo |12/03/23|Aula_Magna|2.5|150|todas|

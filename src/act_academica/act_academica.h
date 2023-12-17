@@ -2,12 +2,15 @@
 #define ACTACADEMICA_H
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Act_academica{
     private:
         int id_;
         std::string titulo_;
-        std::string descripcion_;
+        std::string fecha_;
+        std::vector<std::string> ponentes_;
+        std::string ubicacion_;
         float precio_;
         int aforomax_;
         std::string carrera_;
@@ -16,12 +19,14 @@ class Act_academica{
         //Getters
         int GetId(){return id_;}
         std::string GetTitulo(){return titulo_;}
-        std::string GetDesc(){return descripcion_;}
+        std::vector<std::string> GetPonentes(){return ponentes_;}
+        std::string GetFecha(){return fecha_;}
+        std::string GetUbicacion(){return ubicacion_;}
         float GetPrecio(){return precio_;}
         int GetAforoMax(){return aforomax_;}
         //Setters
         void SetId();
-        void SetCarrera(int carrera){carrera_= carrera;}
+        void SetCarrera(std::string carrera){carrera_= carrera;}
         //Funciones Propias
         void RellenarDatosT();//Rellena los atributos de la clase leidos por texto
         bool RellenarDatosFAc(int id_act);//Rellena la clase con el identificador id_act del fichero ActAcademicas.txt 
