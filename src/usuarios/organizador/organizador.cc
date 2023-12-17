@@ -51,22 +51,22 @@ bool Organizador::VerActAcademicasConf()
 }
 
 bool VerActAcademicasNoConf() {
-    std::ifstream archivo("../BD/ActAcademicas.txt");
+    std::ifstream DataActAcad("../BD/ActAcademicas.txt");
 
-    if (!archivo.is_open()) {
+    if (!DataActAcad.is_open()) {
         std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
         return false;
     }
 
-    std::string linea;git
+    std::string linea;
     int contador = 0;
 
-    while (getline(archivo, linea)) {
+    while (getline(DataActAcad, linea)) {
         ++contador;
         std::cout <<linea << "\n";
     }
 
-    archivo.close();
+    DataActAcad.close();
     if (contador > 0)
     {
         return true;
