@@ -9,8 +9,8 @@ Act_academica::Act_academica(int id_act){
 }
 
 void Act_academica::SetId(){
-    std::ifstream DataAct("../BD/ActAcademicas.txt");
-    std::ifstream DataCom("../BD/comunicacion.txt");
+    std::ifstream DataAct("src/BD/ActAcademicas.txt");
+    std::ifstream DataCom("src/BD/comunicacion.txt");
     if(DataAct.is_open() || DataCom.is_open()){
         //Busca en el fichero "ActAcademicas.txt" el ultimo id y lo guarda en idef_a
         std::string lineaAc1;
@@ -54,10 +54,10 @@ void Act_academica::SetId(){
 }
 
 void Act_academica::RellenarDatosT(){
-    std::string titulo, descripcion;
+    std::string titulo, ponente, fecha, ubicacion;
     float precio;
-    int aforomax, valor=1, fin=0;
-    while(valor!=5){
+    int aforomax, valor=1, fin=0, cant_ponentes;
+    while(valor!=7){
         switch(valor){
             case 1:
                 std::cout<<"Introduzca el titulo de la actividad:\n";
@@ -67,25 +67,45 @@ void Act_academica::RellenarDatosT(){
                     break;
                 }
             case 2:
-                std::cout<<"Introduzca una breve descripcion:\nDebe incluir ponentes, fecha, ubicacion y más detalles\n";
-                std::cin>>descripcion;
-                descripcion_=descripcion;
+                if(valor==2){
+                    ponentes_.clear();
+                }
+                std::cout<<"Cuantos ponentes tiene la actividad?\n";
+                std::cin>>cant_ponentes;
+                std::cout<<"Escribalo de la siguiente manera: Nombre_Apellido1\n";
+                for(int i=0; i<cant_ponentes; i++){
+                    std::cout<<"Nombre de ponente "<<(i+1)<<": ";
+                    std::cin>>ponente;
+                    ponentes_.push_back(ponente);
+                }                
                 if(valor!=1){
                     break;
                 }
             case 3:
+                std::cout<<"Introduzca la fecha. Ejemplo: 25/03/2009\n";
+                std::cin>>fecha_;
+                if(valor!=1){
+                    break;
+                }
+            case 4:
+                std::cout<<"Introduzca la ubicacion (Sin espacios)\n";
+                std::cin>>ubicacion_;
+                if(valor!=1){
+                    break;
+                }
+            case 5:
                 std::cout<<"Introduzca el precio de la actividad:\n";
                 std::cin>>precio;
                 precio_=precio;
                 if(valor!=1){
                     break;
                 }
-            case 4:
+            case 6:
                 std::cout<<"Introduzca el aforo maximo de la actividad:\n";
                 std::cin>>aforomax;
                 aforomax_=aforomax;
                 break;
-            case 5:
+            case 7:
                 std::cout<<"Saliendo de la asignacion de valores.\n";
                 break;
             default:
@@ -94,8 +114,9 @@ void Act_academica::RellenarDatosT(){
         }
 
         if(valor!=5){
-            std::cout<<"¿Que desea realizar ahora?\n1. Editar titulo\n 2. Editar descripcion\n";
-            std::cout<<" 3. Editar precio\n 4. Editar aforo maximo\n 5. Guardar cambios\n";
+            std::cout<<"¿Que desea realizar ahora?\n 1. Editar titulo\n 2. Editar ponentes\n";
+            std::cout<<" 3. Editar fecha\n 4. Editar ubicacion\n";
+            std::cout<<" 5. Editar precio\n 6. Editar aforo maximo\n 7. Guardar cambios\n";
             std::cin>>valor;
             fin= 1;
         }
@@ -104,75 +125,98 @@ void Act_academica::RellenarDatosT(){
 
 
 bool Act_academica::RellenarDatosFAc(int id_act){
-    std::ifstream DataAct("../BD/ActAcademicas.txt");
-    if(DataAct.is_open()){
-        std::string linea;
-        std::getline(DataAct,linea);
-        while(std::getline(DataAct,linea)){
-            std::istringstream ss(linea);
-            std::string l_titulo, l_descripcion, l_carrera, l_precio, l_aforo, l_identific_str;
-            if(std::getline(ss, l_identific_str, '|')){
-                int l_identific= std::stoi(l_identific_str);
-                if(l_identific==id_act){
-                    ss.ignore(1);
-                    id_= l_identific;
-                    std::getline(ss,l_titulo, '|');
-                    titulo_= l_titulo;
-                    std::getline(ss,l_descripcion, '|');
-                    descripcion_= l_descripcion;
-                    std::getline(ss,l_precio, '|');
-                    precio_= std::stof(l_precio);
-                    std::getline(ss,l_aforo, '|');
-                    aforomax_= std::stoi(l_aforo);
-                    ss.ignore(1, '|');
-                    std::getline(ss,l_carrera, '|');
-                    carrera_= std::stoi(l_carrera);
-                    DataAct.close();
-                    return true;
-                }
-            }
-        }
-        DataAct.close();
+    std::ifstream DataAct("src/BD/ActAcademicas.txt");
+    if(!DataAct.is_open()){
+        std::cout<<"Error al abrir el fichero ActAcademicas.txt\n";
         return false;
     }
+
+    std::string linea;
+    std::getline(DataAct,linea);
+    while(std::getline(DataAct,linea)){
+        std::string l_titulo, l_ponentes, l_carrera, l_precio, l_aforo, l_identific_str;
+        std::string ponente, l_fecha, l_ubicacion; 
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        if(std::getline(ss, l_identific_str, '|')){
+            int l_identific= std::stoi(l_identific_str);
+            if(l_identific==id_act){
+                id_= l_identific;
+                std::getline(ss,l_titulo, '|');
+                titulo_= l_titulo;
+                std::getline(ss,l_ponentes, '|');
+                std::istringstream ss2(l_ponentes);
+                ponentes_.clear();
+                while(std::getline(ss2, ponente, ' ')){
+                    ponentes_.push_back(ponente);
+                }
+                std::getline(ss,l_fecha, '|');
+                fecha_= l_fecha;
+                std::getline(ss,l_ubicacion, '|');
+                ubicacion_= l_ubicacion;
+                std::getline(ss,l_precio, '|');
+                precio_= std::stof(l_precio);
+                std::getline(ss,l_aforo, '|');
+                aforomax_= std::stoi(l_aforo);
+                std::getline(ss,l_carrera,'|');
+                carrera_= l_carrera;
+                DataAct.close();
+                return true;
+            }
+        }
+    }
+    DataAct.close();
     return false;
 }
 
 bool Act_academica::RellenarDatosFCom(int id_act){
-    std::ifstream DataAct("../BD/comunicacion.txt");
-    if(DataAct.is_open()){
-        std::string linea;
-        std::getline(DataAct,linea);
-        while(std::getline(DataAct,linea)){
-            std::istringstream ss(linea);
-            std::string l_titulo, l_descripcion, l_carrera, l_precio, l_aforo, l_identific_str;
-            if(std::getline(ss, l_identific_str, '|')){
-                int l_identific= std::stoi(l_identific_str);
-                if(l_identific==id_act){
-                    ss.ignore(1);
-                    id_= l_identific;
-                    std::getline(ss,l_titulo, '|');
-                    titulo_= l_titulo;
-                    std::getline(ss,l_descripcion, '|');
-                    descripcion_= l_descripcion;
-                    std::getline(ss,l_precio, '|');
-                    precio_= std::stof(l_precio);
-                    std::getline(ss,l_aforo, '|');
-                    aforomax_= std::stoi(l_aforo);
-                    DataAct.close();
-                    return true;
-                }
-            }
-        }
-        DataAct.close();
+    std::ifstream DataAct("src/BD/comunicacion.txt");
+    if(!DataAct.is_open()){
+        std::cout<<"Error al abrir el fichero comunicacion.txt\n";
         return false;
     }
+
+    std::string linea;
+    std::getline(DataAct,linea);
+    while(std::getline(DataAct,linea)){
+        std::string l_titulo, l_ponentes, l_carrera, l_precio, l_aforo, l_identific_str;
+        std::string ponente, l_fecha, l_ubicacion; 
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        if(std::getline(ss, l_identific_str, '|')){
+            int l_identific= std::stoi(l_identific_str);
+            if(l_identific==id_act){
+                id_= l_identific;
+                std::getline(ss,l_titulo, '|');
+                titulo_= l_titulo;
+                std::getline(ss,l_ponentes, '|');
+                std::istringstream ss2(l_ponentes);
+                ponentes_.clear();
+                while(std::getline(ss2, ponente, ' ')){
+                    ponentes_.push_back(ponente);
+                }
+                std::getline(ss,l_fecha, '|');
+                fecha_= l_fecha;
+                std::getline(ss,l_ubicacion, '|');
+                ubicacion_= l_ubicacion;
+                std::getline(ss,l_precio, '|');
+                precio_= std::stof(l_precio);
+                std::getline(ss,l_aforo, '|');
+                aforomax_= std::stoi(l_aforo);
+                std::getline(ss,l_carrera,'|');
+                carrera_= l_carrera;
+                DataAct.close();
+                return true;
+            }
+        }
+    }
+    DataAct.close();
     return false;
 }
 
 bool Act_academica::ModificarActFCom(){
-    std::ifstream DataAct("../BD/comunicacion.txt");
-    std::ofstream DataAux("../BD/aux.txt");
+    std::ifstream DataAct("src/BD/comunicacion.txt");
+    std::ofstream DataAux("src/BD/aux.txt");
     std::string linea;
     bool fnd= false;
     if(!DataAct.is_open() || !DataAux.is_open()){
@@ -189,7 +233,11 @@ bool Act_academica::ModificarActFCom(){
         std::getline(ss, id_str, '|');
         int id= std::stoi(id_str);
         if(id_==id){
-            DataAux<<"\n|"<<id_<<"|"<<titulo_<<"|"<<descripcion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+            DataAux<<"\n|"<<id_<<"|"<<titulo_<<"|";
+            for(auto j: ponentes_){
+                DataAux<<j<<" ";
+            }
+            DataAux<<"|"<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
             fnd= true;
         }
         else{
@@ -201,16 +249,21 @@ bool Act_academica::ModificarActFCom(){
     DataAct.close();
     DataAux.close();
 
-    remove("prueba.txt");
-    rename("aux.txt","prueba.txt");
+    remove("src/BD/comunicacion.txt");
+    rename("src/BD/aux.txt","src/BD/comunicacion.txt");
     return fnd;
 }
 
 void Act_academica::ImprimirDatos(){
     std::cout<<"ACT ACADEMICA ID= "<<id_<<"\n";
     std::cout<<"TITULO: "<<titulo_<<"\n";
-    std::cout<<"DESCRIPCION: \n"<<descripcion_<<"\n";
+    std::cout<<"PONENTES: ";
+    for(auto j : ponentes_){
+        std::cout<<j<<" ";
+    }
+    std::cout<<"\nFECHA: "<<fecha_<<"\n";
+    std::cout<<"UBICACION: "<<ubicacion_<<"\n";
     std::cout<<"PRECIO: "<<precio_<<"\n";
     std::cout<<"AFORO: "<<aforomax_<<"\n";
-    std::cout<<"CARRERA: "<<carrera_<<"\n";
+    std::cout<<"CARRERA: "<<carrera_<<"\n\n";
 }
