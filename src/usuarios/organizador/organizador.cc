@@ -1,29 +1,33 @@
 #include "organizador.h"
-#include "string"
-#include "vector"
 #include "usuario.h"
 #include "act_academica.h"
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+
 
 void Organizador::CrearActAcademica()
 {
     Act_academica a1;
     a1.SetId();
-    a1.RellenarDatos();
+    a1.RellenarDatosT();
+    //Imprime en el fichero de "Comunicación.txt"
+    a1.ImprimirFCom();
 }
 
 bool Organizador::ModificarActAcademica(int id_act)
 {
     Act_academica a1(id_act);
-    std::cout << "Modificando actividad académica con ID " << id_act << ":\n";
     a1.RellenarDatosT();
-    return a1.ModificarActF("../BD/comunicacion.txt");
+    return a1.ModificarActFCom("src/BD/comunicacion.txt");
 }
 
 bool Organizador::VerActAcademicasConf()
 {
-    std::ifstream archivo("../BD/ActAcademicas.txt");
+    std::ifstream DataActAcad("src/BD/ActAcademicas.txt");
 
-    if (!archivo.is_open())
+    if (!DataActAcad.is_open())
     {
         std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
         return false;
@@ -32,15 +36,15 @@ bool Organizador::VerActAcademicasConf()
     std::string linea;
     int contador = 0;
 
-    while (getline(archivo, linea))
+    while (std::getline(DataActAcad, linea))
     {
         ++contador;
         std::cout <<linea << "\n";
     }
 
-    archivo.close();
+    DataActAcad.close();
 
-    if (contador > 0)
+    if (contador > 1)
     {
         return true;
     }
@@ -50,8 +54,8 @@ bool Organizador::VerActAcademicasConf()
     }
 }
 
-bool VerActAcademicasNoConf() {
-    std::ifstream DataActAcad("../BD/ActAcademicas.txt");
+bool Organizador::VerActAcademicasNoConf() {
+    std::ifstream DataActAcad("src/BD/ActAcademicas.txt");
 
     if (!DataActAcad.is_open()) {
         std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
@@ -61,13 +65,13 @@ bool VerActAcademicasNoConf() {
     std::string linea;
     int contador = 0;
 
-    while (getline(DataActAcad, linea)) {
+    while (std::getline(DataActAcad, linea)) {
         ++contador;
         std::cout <<linea << "\n";
     }
 
     DataActAcad.close();
-    if (contador > 0)
+    if (contador > 1)
     {
         return true;
     }
