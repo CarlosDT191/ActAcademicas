@@ -20,7 +20,7 @@ class Alumno: public Usuario{
         std::string verEstadoAct(int id_act);
         bool CambiarEstado(int state, int id_act);
         bool RellenarF(std::string correo);
-        std::vector <int> VectorIdsInscrip();
+        std::vector<int> VectorIdsInscrip();
 };
 
 #endif
