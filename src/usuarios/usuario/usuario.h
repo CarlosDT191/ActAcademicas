@@ -25,7 +25,7 @@ class Usuario{
         void SetRol(int rol){rol_ = rol;}
         void SetCarrera(std::string carrera){carrera_ = carrera}
 
-        bool Login();
+        bool Login(); //Recibe los datos de la persona los compara con el fichero y si es correcto devuelve true.
 };
 
 
