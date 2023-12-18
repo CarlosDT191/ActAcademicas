@@ -22,5 +22,9 @@ int main(){
     a1.SetCarrera("mecanica");
     a1.ModificarActFCom();
     
+    a1.RellenarDatosFCom(4);
+    a1.EliminarActCom(4);
+    a1.ImprimirFAc();
+
     return 0;
 }

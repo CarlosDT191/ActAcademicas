@@ -1,2 +1,3 @@
 |ID|   TITULO  |         PONENTES         | FECHA  |  UBICACION  |PRECIO|AFORO|CARRERA|
 |1|ERASMUS|Maria_Gonzalez Pablo_Martinez Manuel_Bravo |12/03/23|Aula_Magna|2.5|150|todas|
+|3|Datos|Felipe_Maria Oscar_Bravo |01/10/24|Aula_B1|1.5|100|todas|
