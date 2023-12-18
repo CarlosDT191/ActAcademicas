@@ -1,5 +1,6 @@
 add_library(lista_asistencia lista_asistencia.cc lista_asistencia.h)
-
-#echo herencia target_link_libraries(basket PUBLIC product)
-
 target_include_directories(lista_asistencia PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_link_libraries(lista_asistencia PUBLIC act_academica)
+
+add_executable(lista_asistencia-main lista_asistencia-main.cc)
+target_link_libraries(lista_asistencia-main PUBLIC lista_asistencia)
