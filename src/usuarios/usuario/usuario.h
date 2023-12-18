@@ -1,6 +1,3 @@
-//usuario.h
-//Se crea la clase usuario
-
 #ifndef USUARIO_H
 #define USUARIO_H
 
