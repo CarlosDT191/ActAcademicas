@@ -8,8 +8,8 @@ class Act_academica{
     private:
         int id_;
         std::string titulo_;
-        std::string fecha_;
         std::vector<std::string> ponentes_;
+        std::string fecha_;
         std::string ubicacion_;
         float precio_;
         int aforomax_;
@@ -33,6 +33,9 @@ class Act_academica{
         bool RellenarDatosFCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt        
         bool ModificarActFCom();//Modifica la actividad academica del fichero de comunicacion
         void ImprimirDatos();//Imprime los datos por pantalla
+        bool EliminarActCom(int id_act);//Elimina la actividad con id=id_act del fichero "comunicacion.txt"
+        void ImprimirFAc();//Imprime los datos que tiene guardados la clase en el fichero "ActAcademicas.txt"
+        void ImprimirFCom();//Imprime los datos que tiene guardados en la clase en el fichero "comunicacion.txt"
 };
 
 

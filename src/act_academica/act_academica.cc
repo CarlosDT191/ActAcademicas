@@ -60,7 +60,7 @@ void Act_academica::RellenarDatosT(){
     while(valor!=7){
         switch(valor){
             case 1:
-                std::cout<<"Introduzca el titulo de la actividad:\n";
+                std::cout<<"Introduzca el titulo de la actividad (Sin espacios):\n";
                 std::cin>>titulo;
                 titulo_= titulo;
                 if(valor==1 && fin!=0){
@@ -266,4 +266,52 @@ void Act_academica::ImprimirDatos(){
     std::cout<<"PRECIO: "<<precio_<<"\n";
     std::cout<<"AFORO: "<<aforomax_<<"\n";
     std::cout<<"CARRERA: "<<carrera_<<"\n\n";
+}
+
+bool Act_academica::EliminarActCom(int id_act){
+    std::ifstream DataAct("src/BD/comunicacion.txt");
+    std::ofstream DataAux("src/BD/aux.txt");
+    std::string linea, id_str;
+    bool fnd= false;
+    std::getline(DataAct,linea);
+    DataAux<<linea;
+    while(std::getline(DataAct,linea)){
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::getline(ss,id_str,'|');
+        int id= std::stoi(id_str);
+        if(id==id_act){
+            fnd= true;
+        }
+        else{
+            DataAux<<"\n"<<linea;
+        }
+    }
+    DataAct.close();
+    DataAux.close();
+
+    remove("src/BD/comunicacion.txt");
+    rename("src/BD/aux.txt","src/BD/comunicacion.txt");
+    return fnd;
+}
+
+void Act_academica::ImprimirFAc(){
+    std::ofstream DataAct("src/BD/ActAcademicas.txt", std::ios::app);
+    DataAct<<"\n|"<<id_<<"|"<<titulo_<<"|";
+    for(auto j : ponentes_){
+        DataAct<<j<<" ";
+    }
+    DataAct<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+    DataAct.close();
+
+}
+
+void Act_academica::ImprimirFCom(){
+    std::ofstream DataCom("src/BD/comunicacion.txt", std::ios::app);
+    DataCom<<"\n|"<<id_<<"|"<<titulo_<<"|";
+    for(auto j : ponentes_){
+        DataCom<<j<<" ";
+    }
+    DataCom<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+    DataCom.close();
 }
