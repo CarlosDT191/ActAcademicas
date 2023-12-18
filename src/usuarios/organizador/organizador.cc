@@ -23,6 +23,7 @@ bool Organizador::ModificarActAcademica(int id_act)
     return a1.ModificarActFCom("src/BD/comunicacion.txt");
 }
 
+//Lee las actividades académicas confirmadas
 bool Organizador::VerActAcademicasConf()
 {
     std::ifstream DataActAcad("src/BD/ActAcademicas.txt");
@@ -53,7 +54,7 @@ bool Organizador::VerActAcademicasConf()
         return false;
     }
 }
-
+//Lee las actividades académicas por confirmar
 bool Organizador::VerActAcademicasNoConf() {
     std::ifstream DataActAcad("src/BD/ActAcademicas.txt");
 

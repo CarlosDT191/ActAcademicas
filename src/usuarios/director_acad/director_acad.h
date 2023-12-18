@@ -1,22 +1,24 @@
 #ifndef DIRECTORACAD_H_
 #define DIRECTORACAD_H_
-#include "usuarios.h"
+#include "usuario.h"
 #include "act_academica.h"
 #include <iostream>
 #include <vector>
 #include <string>
 
-class DirectorAcademico : public Usuario
+class Director_Acad : public Usuario
 {
 private:
-std::rol_=2;
+std::string rol_="2";
 public:
     // Función para ver todas las actividades pendientes en "comunicacion.txt"
-    void VerActPen()
+    void VerActPen();
     // Funcion eliminar act acad
     bool ConfirmarAct(int id_act);
     //Funcion para ver solicitudes
-    bool VerSolicitudes(const std::string& correo);
+    bool VerSolicitudes(std::string& correo);
+    //Función para confimar inscripción
+    void ConfirmarInscripcion(std::string correo, int id_act);
 };
 
 #endif

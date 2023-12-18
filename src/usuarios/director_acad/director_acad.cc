@@ -1,12 +1,13 @@
-#include "directoracad.h"
-#include "usuarios.h"
+#include "director_acad.h"
+#include "usuario.h"
 #include "act_academica.h"
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include <fstream>
+#include <sstream>
     //Funcion para ver las actividades pendientes
-    void DirectorAcad::VerActPen()
+    void Director_Acad::VerActPen()
     {
         std::ifstream DataComunicacion("comunicacion.txt");
 
@@ -18,9 +19,9 @@
 
         std::string linea;
 
-        std::cout << "Actividades pendientes:\n";
+        std::cout << "   ACTIVIDADES PENDIENTES   \n";
 
-        while (getline(DataComunicacion, linea))
+        while (std::getline(DataComunicacion, linea))
         {
             std::cout << linea << "\n";
         }
@@ -28,177 +29,26 @@
         DataComunicacion.close();
     }
 
-    // Funcion eliminar act acad
-    bool DirectorAcad::ConfirmarAct(int id_act)
-    {
-        std::ifstream DataComunicacion("../BD/comunicacion.txt");
-        std::ofstream DataTemp("../BD/temp.txt");
-
-        if (!DataComunicacion.is_open() || !DataTemp.is_open())
-        {
-            std::cerr << "Error al abrir los archivos.\n";
-            return false;
-        }
-
-        ActividadAcademica actividad;
-        std::string linea;
-        bool actividadEncontrada = false;
-        actividad.RellenarDatosFCom(id_act);
-
-        while (getline(DataComunicacion, linea))
-        {
-            std::istringstream iss(linea);
-            iss.ignore(1);
-            int id_prov;
-            std::getline(iss, id_prov,'|');
-            if (actividad.GetId() != id_prov)
-            {
-                DataTemp << linea << "\n";
-                actividadEncontrada = true;
-            }
-        }
-
-        DataComunicacion.close();
-        DataTemp.close();
-
-        if (!actividadEncontrada)
-        {
-            std::cout << "No se encontró una actividad con ID " << id_act << ".\n";
-            remove("../BD/temp.txt");
-            return false;
-        }
-
-        remove("../BD/comunicacion.txt");
-        rename("../BD/temp.txt", "../BD/comunicacion.txt");
-
-        std::ofstream DataAct("../BD/ActAcademicas.txt", std::ios::app);
-
-        if (!DataAct.is_open())
-        {
-            std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
-            return false;
-        }
-
-        DataAct << "/n|" << actividad.GetId() << "|" << actividad.GetTitulo() << "|";
-        DataAct.close();
-
-        std::cout << "Actividad con ID " << id_act << " confirmada y movida a 'ActAcademicas.txt'.\n";
-
-        // FATA ENVIAR A FICHEROS PERSONALES
-        return true;
-    }
     
-    bool  DirectorAcad::ConfirmarAct(int id_act)
+    bool  Director_Acad::ConfirmarAct(int id_act)
     {
-        std::ifstream DataComunicacion("../BD/comunicacion.txt");
-        std::ofstream DataAux("../BD/aux.txt");
-
-        if (!DataComunicacion.is_open() || !DataAux.is_open())
+        Act_academica a1;
+       bool var= a1.EliminarActCom(id_act);
+        if(var)
         {
-            std::cerr << "Error al abrir los archivos.\n";
-            return false;
+            a1.ImprimirFAc();
         }
-
-        Act_academica actividad;
-        std::string linea;
-        bool actividadEncontrada = false;
-        actividad.RellenarDatosFCom(id_act);
-
-        while (getline(DataComunicacion, linea))
-        {
-            std::istringstream iss(linea);
-            iss.ignore(1);
-            int id_prov;
-            std::getline(iss, id_prov);
-            if (actividad.GetId() != id_prov)
-            {
-                archivoSalidaTemp << linea << "\n";
-            }
-            else
-            {
-                actividadEncontrada = true;
-            }
-        }
-
-        DataComunicacion.close();
-        DataAux.close();
-
-        if (!actividadEncontrada)
-        {
-            std::cout << "No se encontró una actividad con ID " << id_act << ".\n";
-            remove("../BD/aux.txt");
-            return false;
-        }
-
-        remove("../BD/comunicacion.txt");
-        rename("../BD/aux.txt", "../BD/comunicacion.txt");
-
-        std::ofstream DataActAcademicas("../BD/ActAcademicas.txt", std::ios::app);
-
-        if (!archivoActConfirmadas.is_open())
-        {
-            std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
-            return false;
-        }
-
-        archivoActConfirmadas << "/n|" << actividad.GetId() << "|" << actividad.GetTitulo() << "|" << actividad.GetDescripcion() << "|" << actividad.GetPrecio() << "|" << actividad.GetAforoMax() << "|" << actividad.GetCarrera() << "|";
-        archivoActConfirmadas.close();
-
-        std::cout << "Actividad con ID " << id_act << " confirmada y movida a 'ActAcademicas.txt'.\n";
-
-        std::ifstream DataCuentas("../BD/cuentas.txt");
-        std::string linea_2;
-        std::getline(DataCuentas, linea_2);
-
-        if (actividad.GetCarrera() == "todos")
-        {
-            while (std::getline(DataCuentas, linea_2))
-            {
-                istringstream iss2(linea_2);
-                std::string correo;
-                ss.ignore(1);
-                std::getline(iss2, correo,'|');
-                // RECOGER UNICAMENTE EL CORREO SIN @UCO.ES Y LO GUARDA EN CORREO Y SE CONCATENA CON LA DIRECCION "../BD" + CORREO + ".TXT"
-                std::ofstream DataMail("../BD" + correo.erase(correo.length()-7) + ".txt", std::ios::app);
-                DataMail << "/n|" << actividad.GetId() << "|" <<actividad.GetTitulo()<< "|" << "nada" << "|\n"; 
-                    DataMail.close();
-            }
-        }
-
-        else
-        {
-            istringstream iss3(linea_2);
-            std::string correo_2;
-            std::string password_2;
-            std::string rol_2;
-            std::string carrera_2;
-            ss.ignore(1);
-            std::getline(iss2, correo,'|');
-            // RECOGER UNICAMENTE EL CORREO SIN @UCO.ES Y LO GUARDA EN CORREO Y SE CONCATENA CON LA DIRECCION "../BD" + CORREO + ".TXT"
-            ss.ignore(1);
-            std::getline(iss2, password,'|'); 
-            ss.ignore(1);
-            std::getline(iss2, rol,'|');
-            ss.ignore(1);
-            std::getline(iss2, carrera,'|');
-            if (actividad.GetCarrera() == carrera_2)
-            {
-                std::ofstream DataMail("../BD" + correo.erase(correo.length()-7) + ".txt", std::ios::app);
-                DataMail << "/n|" << actividad.GetId() << "|" <<actividad.GetTitulo()<< "|" << "nada" << "|"; 
-                    DataMail.close();
-            }
-        }
-
-        return true;
+        
+        return var;
     }
 
- bool DirectorAcad::VerSolicitudes(const std::string& correo) 
+ bool Director_Acad::VerSolicitudes(std::string& correo) 
     {
-        std::ifstream DataMail("../BD" + correo.erase(correo.length()-7) + ".txt", std::ios::app);
+        std::ifstream DataMail("src/BD/" + correo.erase(correo.length()-7) + ".txt");
         std::string linea_1;
         bool fnd= false;
         if (!DataMail.is_open()){
-            std::cerr << "Error al abrir el archivo 'datamail.txt' " << "'\n";
+            std::cerr << "Error al abrir el archivo 'datamail.txt' " << "\n";
             return false;
         }
 
@@ -207,15 +57,15 @@
         //Imprimimos el contenido de los fichero de los correos sin el @uco.es y comprobamos los estados
         while (std::getline(DataMail,linea_1))
         {
-           istringstream iss2(linea_1);
+           std::istringstream iss2(linea_1);
            std::string id;
-           ss.ignore(1);
-           std::getline(ss,id,'|');
+           iss2.ignore(1);
+           std::getline(iss2,id,'|');
            std::string titulo;
-           std::getline(ss,titulo,'|');
+           std::getline(iss2,titulo,'|');
            std::string estado;
-           std::getline(ss,estado,'|');
-           if (estado=="inscrito")
+           std::getline(iss2,estado,'|');
+           if (estado=="inscrito_en_espera")
            {
                 std::cout<<linea_1<<"\n";
                 fnd= true;
@@ -225,13 +75,14 @@
         return fnd;
     }
 
-    void ConfirmarInscripcion(std::string correo, int id_act) {
+    void Director_Acad::ConfirmarInscripcion(std::string correo, int id_act) {
+        std::string direccion=("src/BD/" + correo.erase(correo.length()-7) + ".txt");
         //Abrimos los archivos del correo sin el @uco.es y creamos un fichero temporal para guardar los datos
-        std::ifstream DataMail("../BD" + correo.erase(correo.length()-7) + ".txt", std::ios::app);
-        std::ofstream DataTemp("../BD/temp.txt");
+        std::ifstream DataMail(direccion);
+        std::ofstream DataTemp("src/BD/temp.txt");
 
         if (!DataMail.is_open()) {
-            std::cerr << "Error al abrir el archivo 'datamail.txt' " << "'\n";
+            std::cerr << "Error al abrir el archivo 'datamail.txt' " << "\n";
             return;
         }
 
@@ -248,14 +99,15 @@
         DataTemp<<linea_1;
         // Leer y procesar cada línea del archivo
         while (std::getline(DataMail, linea_1)) {
-            std::istringstream iss(linea);
-            std::string id;
-            ss.ignore(1);
-            std::getline(ss,id,'|');
+            std::istringstream iss(linea_1);
+            std::string id_str;
+            iss.ignore(1);
+            std::getline(iss,id_str,'|');
+            int id=std::stoi(id_str);
             std::string titulo;   
-            std::getline(ss,titulo,'|');
+            std::getline(iss,titulo,'|');
             std::string estado;
-            std::getline(ss,estado,'|');
+            std::getline(iss,estado,'|');
 
             if(id_act == id) {
                 // Encontramos la línea correspondiente a la actividad
@@ -264,7 +116,7 @@
                 fnd = true;
             } 
             else {
-                DataTemp << "\n|" << linea ;
+                DataTemp << "/n" <<linea_1 ;
             }
         }
 
@@ -273,16 +125,15 @@
 
         // Verificar si se encontró y actualizó la actividad
         if (!fnd) {
-            std::cerr << "No se encontró una actividad con ID " << id_act << " para el usuario " << correo << ".\n";
-            std::remove("../BD/temp.txt");  // Eliminar el archivo temporal
+            std::remove("src/BD/temp.txt");  // Eliminar el archivo temporal
             return;
         }
 
         // Renombrar el archivo temporal al archivo original
-        std::remove("../BD" + correo.erase(correo.length()-7) + ".txt");
-        std::rename("../BD/temp.txt", "../BD" + correo.erase(correo.length()-7) + ".txt");
+        std::remove(direccion.c_str());
+        std::rename("src/BD/temp.txt",direccion.c_str());
 
-        // Añadir al alumno en listaasistencia.txt
-        Lista_asistencia l1;
-        return l1.AnadirAlumno(id_act, correo);
+        // // Añadir al alumno en listaasistencia.txt
+        // Lista_asistencia l1;
+        // return l1.AnadirAlumno(id_act, correo);
     }  
