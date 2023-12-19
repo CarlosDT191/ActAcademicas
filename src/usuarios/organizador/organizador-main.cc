@@ -5,27 +5,50 @@
 #include "act_academica.h"
 #include <iostream>
 
-int main()
-{
-    Organizador organizador("Organizador1", "organizador1@example.com");
 
-    // Crear una nueva actividad académica
-    ActividadAcademica nuevaActividad(1, "Ciencia de Datos", 50,
-                                      25.0, 0, 100, "Conferencia de Ciencia de Datos",
-                                      "Una conferencia sobre las últimas tendencias en Ciencia de Datos.Ponentes,ubicación materiales...");
+int main() {
+    // Crear un objeto Organizador
+    Organizador organizador("organizador@mail.com", "contrasena", "Informatica");
 
+    // Llamar a la función CrearActAcademica
+    organizador.CrearActAcademica();
 
-    std::cout << "\nActividades académicas no confirmadas:\n";
-    if (!VerActAcademicasNoConf())
-    {
-        std::cout << "No hay actividades académicas no confirmadas.\n";
+    /* ID de la actividad académica a modificar
+    int id_actividad;
+
+    std::cout << "Ingrese el ID de la actividad académica a modificar: ";
+    std::cin >> id_actividad;
+
+    // Llamar a la función ModificarActAcademica
+    bool resultado = organizador.ModificarActAcademica(id_actividad);
+
+    // Verificar el resultado
+    if (resultado) {
+        std::cout << "La actividad académica se modificó exitosamente." << std::endl;
+    } else {
+        std::cout << "No se pudo modificar la actividad académica." << std::endl;
     }
 
-    std::cout << "\nActividades académicas confirmadas:\n";
-    if (!VerActAcademicasConf())
-    {
+    // Llamar a la función VerActAcademicasConf
+    bool actividadesConfirmadas = organizador.VerActAcademicasConf();
+
+    // Verificar el resultado
+    if (actividadesConfirmadas) {
+        std::cout << "Actividades académicas confirmadas:\n";
+        // Aquí puedes realizar cualquier otra acción que desees con las actividades confirmadas
+    } else {
         std::cout << "No hay actividades académicas confirmadas.\n";
     }
 
+    bool actividadesNoConfirmadas = organizador.VerActAcademicasNoConf();
+
+    // Verificar el resultado
+    if (actividadesNoConfirmadas) {
+        std::cout << "Actividades académicas por confirmar:\n";
+        // Aquí puedes realizar cualquier otra acción que desees con las actividades por confirmar
+    } else {
+        std::cout << "No hay actividades académicas por confirmar.\n";
+    }
+    */
     return 0;
 }

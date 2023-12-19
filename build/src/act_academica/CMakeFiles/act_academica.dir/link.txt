@@ -1,0 +1,2 @@
+/usr/bin/ar qc libact_academica.a CMakeFiles/act_academica.dir/act_academica.cc.o
+/usr/bin/ranlib libact_academica.a
