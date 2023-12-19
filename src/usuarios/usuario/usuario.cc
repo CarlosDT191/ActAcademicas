@@ -43,13 +43,26 @@ bool Usuario::Login(){
                             std::cin >>password;
                             if (l_password == password){
                                 password_ = password;
-                                std::getline(ss, rol_, '|');
+                                std::string rol_str;
+                                std::getline(ss, rol_str, '|');
+                                rol_ = std::stoi(rol_str);
                                 std::getline(ss, carrera_, '|');
                                 DataCuentas.close();
                                 return true;
                             }
                             else {
-                                std::cout <<"Tienes: " << 2-i << " intentos" << std::endl;
+                                int fallo = 2-i;
+                                switch (fallo){
+                                    case 0:
+                                        std::cout <<"Sin intentos. Saliendo del programa" << std::endl;
+                                        break;
+                                    case 1:
+                                        std::cout <<"Tienes 1 intento" << std::endl;
+                                        break;
+                                    case 2:
+                                        std::cout <<"Tienes 2 intentos" << std::endl;
+                                        break;
+                                }
                             }
                         }
                         DataCuentas.close();
@@ -58,10 +71,13 @@ bool Usuario::Login(){
                 }
                 DataCuentas.close();
                 std::cout << "Usuario no encontrado" << std::endl;
-                std::cout << "Seleccione una opción \n 1. Seguir con el login. \n 2. Salir";
+                std::cout << "Seleccione una opción \n 1. Seguir con el login. \n 2. Salir" << std::endl;
                 std::cin >> error;
             }
-
+            else{
+                std::cout << "El formato del correo consta de 15 caracteres, los ultimos 7 son @uco.es \n ¿Que desea hacer? \n 1. Continuar con login \n 2. Salir"<< std::endl;
+                std::cin >> error;
+            }
         }
         else{
             std::cout << "El formato del correo consta de 15 caracteres, los ultimos 7 son @uco.es \n ¿Que desea hacer? \n 1. Continuar con login \n 2. Salir"<< std::endl;

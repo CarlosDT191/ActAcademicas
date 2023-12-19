@@ -19,7 +19,7 @@ class Usuario{
         void SetCorreo(std::string correo){correo_ = correo;}
         void SetPassword(std::string password){password_ = password;}
         void SetRol(int rol){rol_ = rol;}
-        void SetCarrera(std::string carrera){carrera_ = carrera}
+        void SetCarrera(std::string carrera){carrera_ = carrera;}
 
         bool Login(); //Recibe los datos de la persona los compara con el fichero y si es correcto devuelve true.
 };
