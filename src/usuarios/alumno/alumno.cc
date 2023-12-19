@@ -17,135 +17,183 @@ Alumno::Alumno(std::string correo, std::string password, std::string carrera){
     SetCarrera(carrera);
 }
 
-void Alumno::verDetalles(int id_act){
-    Act_academica A1;
-    A1.RellenarDatosFAc(id_act);
-    A1.ImprimirDatos();
+void Alumno::VerBandeja(){
+    std::string correo= GetCorreo();
+    correo.erase(correo.length()-7);
+    correo = "src/BD/" + correo + ".txt";
+    std::string linea;
+    std::cout<<"\n";
+    std::ifstream DataMail(correo);
+    if(DataMail.is_open()){
+        while(std::getline(DataMail,linea)){
+            std::cout<<linea<<"\n";
+        }
+    }
+    DataMail.close();
 }
 
-bool Alumno::verInscrip(){
+bool Alumno::VerDetalles(int id_act){
+    std::string correo= GetCorreo();
+
+    correo.erase(correo.length()-7);
+    correo = "src/BD/" + correo + ".txt";
+    std::ifstream DataMail(correo.c_str());
+    std::string linea, id_str;
+    int id;
+    bool fnd= false;
+    std::getline(DataMail,linea);
+    while(std::getline(DataMail,linea)){
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::getline(ss,id_str,'|');
+        id= std::stoi(id_str);
+        if(id==id_act){
+            fnd= true;
+        }
+    }
+
+    DataMail.close();
+    
+    if(fnd){
+        Act_academica A1;
+        A1.RellenarDatosFAc(id_act);
+        A1.ImprimirDatos();
+    }
+    return fnd;
+}
+
+bool Alumno::VerPreInscrip(){
+    std::string correo= GetCorreo();
+    correo.erase(correo.length()-7);
+    correo = "src/BD/" + correo + ".txt";
+    std::ifstream DataMail(correo.c_str());
+    int contador = 0;
+    if(!DataMail.is_open()) {
+        std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
+        return false;
+    }
+    std::string linea;
+    std::getline(DataMail, linea);
+    while(std::getline(DataMail, linea)){
+        // Suponemos que el formato del archivo es "|IdActividad|Titulo|Estado|"
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::string id_str;
+        std::getline(ss,id_str,'|');
+        int id= std::stoi(id_str);
+        std::string estado = "preinscrito";
+        std::string l_estado;
+        std::getline(ss,l_estado,'|');
+        std::getline(ss,l_estado,'|');
+
+        if(l_estado== estado){ 
+            std::ifstream DataAct("src/BD/ActAcademicas.txt");
+            if(!DataAct.is_open()) {
+                std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
+                return false;
+            }
+            std::string linea_1;
+            std::getline(DataAct, linea_1);
+            if(contador==0){
+                std::cout<<"\n                                MIS PREINSCRIPCIONES\n";
+                std::cout<<linea_1;
+            }
+            while(std::getline(DataAct, linea_1)) {
+                std::istringstream ss1(linea_1);
+                ss1.ignore(1);
+                std::string id_str;
+                std::getline(ss1, id_str, '|');
+                int id_comprobar= std::stoi(id_str);
+                if(id == id_comprobar){
+                    std::cout << "\n" <<linea_1;
+                    contador++;
+                }
+            }
+            DataAct.close();
+        }
+    }
+    DataMail.close();
+    std::cout<<"\n\n";
+    if(contador == 0){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+bool Alumno::VerInscrip(){
+    std::string correo= GetCorreo();
+    correo.erase(correo.length()-7);
+    correo = "src/BD/" + correo + ".txt";
+    std::ifstream DataMail(correo.c_str());
+    int contador = 0;
+    if(!DataMail.is_open()) {
+        std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
+        return false;
+    }
+    std::string linea;
+    std::getline(DataMail, linea);
+    while(std::getline(DataMail, linea)){
+        // Suponemos que el formato del archivo es "|IdActividad|Titulo|Estado|"
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::string id_str;
+        std::getline(ss,id_str,'|');
+        int id= std::stoi(id_str);
+        std::string estado_1 = "inscrito";
+        std::string estado_2= "inscrito_en_espera";
+        std::string l_estado;
+        std::getline(ss,l_estado,'|');
+        std::getline(ss,l_estado,'|');
+
+        if(l_estado== estado_1 || l_estado== estado_2){ 
+            std::ifstream DataAct("src/BD/ActAcademicas.txt");
+            if(!DataAct.is_open()) {
+                std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
+                return false;
+            }
+            std::string linea_1;
+            std::getline(DataAct, linea_1);
+            if(contador==0){
+                std::cout<<"\n                                  MIS INSCRIPCIONES\n";
+                std::cout<<linea_1;
+            }
+            while(std::getline(DataAct, linea_1)) {
+                std::istringstream ss1(linea_1);
+                ss1.ignore(1);
+                std::string id_str;
+                std::getline(ss1, id_str, '|');
+                int id_comprobar= std::stoi(id_str);
+                if(id == id_comprobar){
+                    std::cout << "\n" <<linea_1;
+                    contador++;
+                }
+            }
+            DataAct.close();
+        }
+    }
+    DataMail.close();
+    std::cout<<"\n\n";
+    if(contador == 0){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+std::string Alumno::VerEstadoAct(int id_act){
+    std::string id_str;
     std::string correo;
+    std::string estado;
     correo = GetCorreo();
     correo.erase(correo.length()-7);
     correo = "src/BD/" + correo + ".txt";
-    std::ifstream DataMail(correo);
-    int contador = 0;
+    std::ifstream DataMail(correo.c_str());
     if (!DataMail.is_open()) {
         std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-        return false;
-    }
-    std::string linea;
-    std::getline(DataMail, linea);
-    while (std::getline(DataMail, linea)) {
-        // Suponemos que el formato del archivo es "|IdActividad|Titulo|Estado|"
-        std::istringstream ss(linea);
-        std::string l_estado = "inscrito";
-        std::string k_estado = "inscrito en espera"
-        std::string estado;
-        std::string id_actacademica;
-        size_t primera_pos = linea.find('|');
-        size_t segunda_pos = linea.find('|', primera_pos + 1);
-        size_t tercera_pos = linea.find('|', segunda_pos + 1);
-        size_t cuarta_pos = linea.find('|', tercera_pos + 1);
-        size_t longitud_cadena = cuarta_pos - tercera_pos - 1;
-        estado = linea.substr(tercera_pos + 1, longitud_cadena);
-        if(l_estado = estado || k_estado = estado){
-            ss.ignore(1); 
-            std::getline(ss, id_actacademica, '|');
-        }
-        std::ifstream ActAcademicasFile("./BD/ActAcademicas.txt");
-        if (!ActAcademicasFile.is_open()) {
-            std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-            return false;
-        }
-        std::string linea_1;
-        std::getline(ActAcademicasFile, linea_1);
-        while (std::getline(ActAcademicasFile, linea_1)) {
-            std::istringstream ss1(linea_1);
-            ss1.ignore(1);
-            std::getline(ss1, id_comprobar, '|');
-            if(id_comprobar = id_actacademica){
-                std::cout << linea_1 << std::endl;
-                contador++;
-            }
-        }
-        ActAcademicasFile.close();
-    }
-    DataMail.close();
-    if(contador = 0){
-        return false;
-    }
-    else{
-        return true;
-    }
-}
-
-bool Alumno::verPreInscrip(){
-    std::string correo;
-    correo = GetCorreo();
-    correo.erase(correo.lenght()-7);
-    correo = "src/BD/" + correo + ".txt";
-    std::ifstream DataMail(correo);
-    int contador = 0;
-    if (!DataMail.is_open()) {
-        std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-        return false;
-    }
-    std::string linea;
-    std::getline(DataMail, linea);
-    while (std::getline(DataMail, linea)) {
-        // Suponemos que el formato del archivo es "|IdActividad|Titulo|Estado|"
-        std::istringstream ss(linea);
-        std::string l_estado = "preinscrito";
-        std::string estado;
-        std::string id_actacademica;
-        size_t primera_pos = linea.find('|');
-        size_t segunda_pos = linea.find('|', primera_pos + 1);
-        size_t tercera_pos = linea.find('|', segunda_pos + 1);
-        size_t cuarta_pos = linea.find('|', tercera_pos + 1);
-        size_t longitud_cadena = cuarta_pos - tercera_pos - 1;
-        estado = linea.substr(tercera_pos + 1, longitud_cadena);
-        if(l_estado = estado){
-            ss.ignore(1); 
-            std::getline(ss, id_actacademica, '|');
-        }
-        std::ifstream ActAcademicasFile("./BD/ActAcademicas.txt");
-        if (!ActAcademicasFile.is_open()) {
-            std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-            return false;
-        }
-        std::string linea_1;
-        std::getline(ActAcademicasFile, linea_1);
-        while (std::getline(ActAcademicasFile, linea_1)) {
-            std::istringstream ss1(linea_1);
-            ss1.ignore(1);
-            std::getline(ss1, id_comprobar, '|');
-            if(id_comprobar = id_actacademica){
-                std::cout << linea_1 << std::endl;
-                contador++;
-            }
-        }
-        ActAcademicasFile.close();
-    }
-    DataMail.close();
-    if(contador = 0){
-        return false;
-    }
-    else{
-        return true;
-    }
-}
-
-std::string Alumno::verEstadoAct(int id_act){
-    std::string id_str;
-    std::string correo;
-    correo = GetCorreo();
-    correo.erase(correo.lenght()-7);
-    correo = "src/BD/" + correo + ".txt";
-    std::ifstream DataMail(correo);
-    if (!DataMail.is_open()) {
-        std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-        return false;
+        return estado;
     }
     std::string linea;
     std::getline(DataMail, linea);
@@ -154,29 +202,31 @@ std::string Alumno::verEstadoAct(int id_act){
         ss.ignore(1);
         std::getline(ss, id_str, '|');
         int id_actacademica = std::stoi(id_str); 
-        if(id_actacademica = id_act){
+        if(id_actacademica == id_act){
             size_t primera_pos = linea.find('|');
             size_t segunda_pos = linea.find('|', primera_pos + 1);
             size_t tercera_pos = linea.find('|', segunda_pos + 1);
             size_t cuarta_pos = linea.find('|', tercera_pos + 1);
             size_t longitud_cadena = cuarta_pos - tercera_pos - 1;
-            std::string estado = linea.substr(tercera_pos + 1, longitud_cadena);
+            estado = linea.substr(tercera_pos + 1, longitud_cadena);
             DataMail.close();
             return estado;
         }
     }
+    estado= "No existe esta actividad en la bandeja";
     DataMail.close();
+    return estado;
 }
 
 bool Alumno::CambiarEstado(int state, int id_act){
     std::string correo;
     bool fnd = false;
     correo = GetCorreo();
-    correo.erase(correo.lenght()-7);
+    correo.erase(correo.length()-7);
     correo = "src/BD/" + correo + ".txt";
-    std::ifstream DataMail(correo);
+    std::ifstream DataMail(correo.c_str());
     std::ofstream DataAux("src/BD/aux.txt");
-    if (!DataMail.is_open() || !DataAux.is_open()) {
+    if(!DataMail.is_open() || !DataAux.is_open()) {
         std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
         return false;
     }
@@ -186,25 +236,25 @@ bool Alumno::CambiarEstado(int state, int id_act){
     while (std::getline(DataMail, linea)) {
         std::istringstream ss(linea);
         std::string id_str;
-        std::string estado;
         std::string titulo;
+        std::string estado;
         ss.ignore(1);
         std::getline(ss, id_str, '|'); 
-        int id_actacademica = std::stoi(id_str);
-        if(id_actacademica = id_act){
+        int id = std::stoi(id_str);
+        if(id == id_act){
             std::getline(ss, titulo, '|');
             switch (state){
                 case 0: 
-                    estado = "preinscrito";
+                    estado = "nada";
                     break;
                 case 1:
-                    estado = "nada";
+                    estado = "preinscrito";
                     break;    
                 case 2:                 
                     estado = "inscrito_en_espera";
                     break;
             }
-            DataAux << "\n|" << id_actacademica << "|" << titulo << "|" << estado << "|";
+            DataAux << "\n|" << id << "|" << titulo << "|" << estado << "|";
             fnd = true;
         }
         else{
@@ -213,8 +263,8 @@ bool Alumno::CambiarEstado(int state, int id_act){
     }
     DataMail.close();
     DataAux.close();
-    remove(correo);
-    rename("src/BD/aux.txt", correo);
+    remove(correo.c_str());
+    rename("src/BD/aux.txt", correo.c_str());
     return fnd;
 }
 
@@ -229,8 +279,9 @@ bool Alumno::RellenarF(std::string correo){
     while (std::getline(DataCuentas, linea)) {
         std::istringstream ss(linea);
         ss.ignore(1);
+        std::string correo_comprobar;
         std::getline(ss, correo_comprobar, '|');
-        if(correo_comprobar = correo){
+        if(correo_comprobar == correo){
             SetCorreo(correo_comprobar);
             std::string password;
             std::getline(ss, password, '|');
@@ -252,12 +303,12 @@ std::vector<int> Alumno::VectorIdsInscrip(){
     std::string id_str;
     std::string correo;
     correo = GetCorreo();
-    correo.erase(correo.lenght()-7);
+    correo.erase(correo.length()-7);
     correo = "src/BD/" + correo + ".txt";
     std::ifstream DataMail(correo);
-    if (!DataMail.is_open()) {
+    if (!DataMail.is_open()){
         std::cout << "Error al abrir el archivo de la bandeja personal." << std::endl;
-        return false;
+        return vec_int;
     }
     std::string linea;
     std::getline(DataMail, linea);
@@ -272,7 +323,7 @@ std::vector<int> Alumno::VectorIdsInscrip(){
         size_t cuarta_pos = linea.find('|', tercera_pos + 1);
         size_t longitud_cadena = cuarta_pos - tercera_pos - 1;
         std::string estado = linea.substr(tercera_pos + 1, longitud_cadena);
-        if(estado = "inscrito_en_espera"){
+        if(estado == "inscrito_en_espera"){
             vec_int.push_back(id_actacademica);
         }
     }

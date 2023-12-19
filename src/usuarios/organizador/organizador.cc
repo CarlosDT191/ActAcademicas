@@ -6,6 +6,12 @@
 #include <iostream>
 #include <fstream>
 
+Organizador::Organizador(std::string correo, std::string password, std::string carrera){
+    SetCorreo(correo);
+    SetPassword(password);
+    SetRol(3);
+    SetCarrera(carrera);
+}
 
 void Organizador::CrearActAcademica()
 {
@@ -20,7 +26,8 @@ bool Organizador::ModificarActAcademica(int id_act)
 {
     Act_academica a1(id_act);
     a1.RellenarDatosT();
-    return a1.ModificarActFCom("src/BD/comunicacion.txt");
+    bool var = a1.ModificarActFCom();
+    return var;
 }
 
 //Lee las actividades académicas confirmadas

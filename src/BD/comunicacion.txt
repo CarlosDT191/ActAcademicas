@@ -1,2 +1,1 @@
 |ID|     TITULO    |           PONENTES           | FECHA  |UBICACION|PRECIO|AFORO|CARRERA|
-|4|Charla_divulgativa|Jose_Carrion 01/08/24|Aula_B10|2|150|electronica|

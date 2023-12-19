@@ -78,14 +78,17 @@ void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
             std::cin>>valor;
             switch(valor){
                 case 1:
-                    if(alum.CambiarEstado(1, id_act)){//PREINSCRITO ---> NADA
+                    if(alum.CambiarEstado(0, id_act)){//PREINSCRITO ---> NADA
                         std::cout<<"Estado cambiado correctamente\n";
                     }
                 case 2:
-                    if(alum.CambiarEstado(2, id_act)){//PREINSCRITO ---> INSCRITO
+                    if(alum.CambiarEstado(1, id_act)){//NADA ---> PREINSCRITO
                         std::cout<<"Estado cambiado correctamente\n";
                     }
                 case 3:
+                    if(alum.CambiarEstado(2, id_act)){//PREINSCRITO ---> INSCRITO
+                        std::cout<<"Estado cambiado correctamente\n";
+                    }
                     break;
                 default:
                     std::cout<<"Valor introducido incorrecto, saliendo de acceder a una actividad academica\n";
@@ -180,33 +183,23 @@ void menuAlumno(Alumno &alum){
         std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
-                std::string directorio= "../BD/";
-                std::string user= (alum.GetCorreo()).substr(0,(alum.GetCorreo()).size()-7);
-                std::string direccion= directorio+user+".txt";
-                std::string linea;
-                std::ifstream DataMailing(direccion);
-                if(DataMailing.is_open()){
-                    while(std::getline(DataMailing,linea)){
-                        std::cout<<linea<<"\n";
-                    }
-                }
-                DataMailing.close();
+                a1.VerBandeja();
                 break;        
             case 2:
                 std::cout<<"¿Qué actividad académica quiere ver en detalle?\n";
                 int id_actividad;
                 std::cin>>id_actividad;
-                alum.verDetalles(id_actividad);
-                std::string estado=alum.verEstadoAct(id_actividad);
+                alum.VerDetalles(id_actividad);
+                std::string estado=alum.VerEstadoAct(id_actividad);
                 MenuDetalleAct(estado, alum, id_actividad);
                 break;        
             case 3:
-                if(!alum.verPreInscrip()){
+                if(!alum.VerPreInscrip()){
                     std::cout<<"No hay ninguna pre-inscripcion\n";
                 }
                 break;
             case 4:
-                if(!alum.verInscrip()){
+                if(!alum.VerInscrip()){
                     std::cout<<"No hay ninguna inscripcion\n";
                 }
                 break;
