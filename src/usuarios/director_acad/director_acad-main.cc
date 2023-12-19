@@ -9,12 +9,12 @@
 
 int main()
 {
-    Director_acad d1;
+    Director_Acad d1("orgmajog@uco.es","organizadorsoy","nada");
     d1.VerActPen();
-    d1.ConfirarAct(id_act);
-    d1.VerSolicitudes(correo);
-    d1.ConfirmarInscripcion(id_act,correo);
+    // d1.ConfirmarAct(3);
+    d1.VerSolicitudes("i22lumas@uco.es");
+    d1.ConfirmarInscripcion("i22lumas@uco.es",1);
 
 
 
-}
+} 

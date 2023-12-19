@@ -1,15 +1,25 @@
 #include "director_acad.h"
 #include "usuario.h"
 #include "act_academica.h"
+#include "lista_asistencia.h"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
+    
+    //Constructor
+    Director_Acad::Director_Acad(std::string correo, std::string password, std::string carrera)
+    {
+    SetCorreo(correo);
+    SetPassword(password);
+    SetRol(2);
+    SetCarrera(carrera);
+    }
     //Funcion para ver las actividades pendientes
     void Director_Acad::VerActPen()
     {
-        std::ifstream DataComunicacion("comunicacion.txt");
+        std::ifstream DataComunicacion("src/BD/comunicacion.txt");
 
         if (!DataComunicacion.is_open())
         {
@@ -19,13 +29,13 @@
 
         std::string linea;
 
-        std::cout << "   ACTIVIDADES PENDIENTES   \n";
+        std::cout << "\n                            ACTIVIDADES PENDIENTES   \n";
 
         while (std::getline(DataComunicacion, linea))
         {
             std::cout << linea << "\n";
         }
-
+        std::cout << "\n";
         DataComunicacion.close();
     }
 
@@ -42,7 +52,7 @@
         return var;
     }
 
- bool Director_Acad::VerSolicitudes(std::string& correo) 
+ bool Director_Acad::VerSolicitudes(std::string correo) 
     {
         std::ifstream DataMail("src/BD/" + correo.erase(correo.length()-7) + ".txt");
         std::string linea_1;
@@ -51,7 +61,7 @@
             std::cerr << "Error al abrir el archivo 'datamail.txt' " << "\n";
             return false;
         }
-
+        std::cout << "\nSolicitudes de inscripción pendientes de " << correo << "\n";
         std::getline(DataMail,linea_1);
         std::cout<<linea_1<<"\n";
         //Imprimimos el contenido de los fichero de los correos sin el @uco.es y comprobamos los estados
@@ -71,11 +81,13 @@
                 fnd= true;
            }
         }
+        std::cout <<"\n";
         DataMail.close();
         return fnd;
     }
 
     void Director_Acad::ConfirmarInscripcion(std::string correo, int id_act) {
+        std::string correo_dominio=correo;
         std::string direccion=("src/BD/" + correo.erase(correo.length()-7) + ".txt");
         //Abrimos los archivos del correo sin el @uco.es y creamos un fichero temporal para guardar los datos
         std::ifstream DataMail(direccion);
@@ -109,14 +121,14 @@
             std::string estado;
             std::getline(iss,estado,'|');
 
-            if(id_act == id) {
+            if(id_act == id && estado=="inscrito_en_espera") {
                 // Encontramos la línea correspondiente a la actividad
                 // Actualizar el estado a "Inscripcion"
-                DataTemp << "/n|"<<id_act << "|" << titulo << "|" <<"inscrito";
+                DataTemp << "\n|"<<id_act << "|" << titulo << "|" <<"inscrito|";
                 fnd = true;
             } 
             else {
-                DataTemp << "/n" <<linea_1 ;
+                DataTemp << "\n" <<linea_1 ;
             }
         }
 
@@ -133,7 +145,7 @@
         std::remove(direccion.c_str());
         std::rename("src/BD/temp.txt",direccion.c_str());
 
-        // // Añadir al alumno en listaasistencia.txt
-        // Lista_asistencia l1;
-        // return l1.AnadirAlumno(id_act, correo);
+        // Añadir al alumno en listaasistencia.txt
+        Lista_asistencia l1;
+        l1.AnadirAlumno(id_act, correo_dominio);
     }  
