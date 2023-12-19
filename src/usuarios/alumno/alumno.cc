@@ -26,7 +26,7 @@ void Alumno::verDetalles(int id_act){
 bool Alumno::verInscrip(){
     std::string correo;
     correo = GetCorreo();
-    correo.erase(correo.lenght()-7);
+    correo.erase(correo.length()-7);
     correo = "src/BD/" + correo + ".txt";
     std::ifstream DataMail(correo);
     int contador = 0;
