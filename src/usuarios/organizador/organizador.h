@@ -1,24 +1,25 @@
 #ifndef ORGANIZADOR_H_
 #define ORGANIZADOR_H_
-#include "usuarios.h"
-#include "act_academica"
+#include "usuario.h"
+#include "act_academica.h"
 #include <iostream>
 #include <vector>
 #include <string>
 
 // Clase derivada Organizador
-class Organizador : public Usuario
-{
-private:
-std::string rol_=3;
-public:
-    void CrearActAcademica();
+class Organizador : public Usuario{
+    private:
+    public:
+        Organizador(std::string correo, std::string password, std::string carrera);
+        void CrearActAcademica();
 
-// Función para modificar una actividad académica
-    bool Organizador::ModificarActAcademica(int id_act);
+    // Función para modificar una actividad académica
+        bool ModificarActAcademica(int id_act);
 
-    bool Organizador::VerActAcademicasConf();
-    };
+        bool VerActAcademicasConf();
+
+        bool VerActAcademicasNoConf();
+        };
 
 
 #endif
