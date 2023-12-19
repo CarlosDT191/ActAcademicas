@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblista_asistencia.a CMakeFiles/lista_asistencia.dir/lista_asistencia.cc.o
+/usr/bin/ranlib liblista_asistencia.a
