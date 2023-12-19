@@ -255,7 +255,7 @@ bool Act_academica::ModificarActFCom(){
 }
 
 void Act_academica::ImprimirDatos(){
-    std::cout<<"ACT ACADEMICA ID= "<<id_<<"\n";
+    std::cout<<"\nACT ACADEMICA ID= "<<id_<<"\n";
     std::cout<<"TITULO: "<<titulo_<<"\n";
     std::cout<<"PONENTES: ";
     for(auto j : ponentes_){
