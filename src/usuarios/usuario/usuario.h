@@ -2,7 +2,6 @@
 #define USUARIO_H
 
 #include <string>
-#include "act_academica.h"
 #include <iostream>
 
 class Usuario{

@@ -3,11 +3,19 @@
 
 #include "usuario.h"
 #include "alumno.h"
+#include "act_academica.h"
 #include <string>
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
+Alumno::Alumno(std::string correo, std::string password, std::string carrera){
+    SetCorreo(correo);
+    SetPassword(password);
+    SetRol(1);
+    SetCarrera(carrera);
+}
 
 void Alumno::verDetalles(int id_act){
     Act_academica A1;

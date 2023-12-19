@@ -11,9 +11,8 @@
 
 class Alumno: public Usuario{
     private:
-        rol_ = 1;
-    
     public:
+        Alumno(std::string correo, std::string password, std::string carrera);
         void verDetalles(int id_act);
         bool verInscrip();
         bool verPreInscrip();
