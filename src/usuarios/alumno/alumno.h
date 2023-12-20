@@ -13,7 +13,7 @@ class Alumno: public Usuario{
     private:
     public:
         //Constructor de la clase alumno
-        Alumno(std::string correo, std::string password, std::string carrera);
+        Alumno(std::string correo= "none", std::string password="none", std::string carrera= "none");
         //Muestra la bandeja de entrada del correo del alumno
         void VerBandeja();
         //Muestra en detalle la informacion de la actividad

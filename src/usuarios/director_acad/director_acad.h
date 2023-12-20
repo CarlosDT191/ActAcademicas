@@ -22,6 +22,8 @@ public:
     bool VerSolicitudes(std::string correo);
     //Función para confimar inscripción
     void ConfirmarInscripcion(std::string correo, int id_act);
+    /*
+    bool EnviarAct(int id_act);*/
 };
 
 #endif
