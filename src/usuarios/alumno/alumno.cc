@@ -4,6 +4,7 @@
 #include "usuario.h"
 #include "alumno.h"
 #include "act_academica.h"
+#include "lista_asistencia.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -213,9 +214,7 @@ std::string Alumno::VerEstadoAct(int id_act){
             return estado;
         }
     }
-    estado= "No existe esta actividad en la bandeja";
     DataMail.close();
-    return estado;
 }
 
 bool Alumno::CambiarEstado(int state, int id_act){
@@ -237,21 +236,46 @@ bool Alumno::CambiarEstado(int state, int id_act){
         std::istringstream ss(linea);
         std::string id_str;
         std::string titulo;
-        std::string estado;
+        std::string estado, l_estado;
         ss.ignore(1);
         std::getline(ss, id_str, '|'); 
         int id = std::stoi(id_str);
+        Lista_asistencia l1;
+        l1.RecogerListaAct(id);
         if(id == id_act){
             std::getline(ss, titulo, '|');
+            std::getline(ss,l_estado,'|');
             switch (state){
                 case 0: 
-                    estado = "nada";
+                    if(l1.GetAforoRes()!=0){
+                        estado = "nada";
+                    }                
+                    else{
+                        if(l_estado!="inscrito"){
+                            estado= "aforo_completo";
+                        }
+                        else{
+                            estado= "inscrito";
+                        }
+                    }
                     break;
                 case 1:
-                    estado = "preinscrito";
+                    if(l1.GetAforoRes()!=0){
+                        estado = "preinscrito";
+                    }                
+                    else{
+                        estado= "aforo_completo";
+                        std::cout<<"No se puede preinscribir en esta actividad AFORO COMPLETO\n";
+                    }
                     break;    
-                case 2:                 
-                    estado = "inscrito_en_espera";
+                case 2:
+                    if(l1.GetAforoRes()!=0){
+                        estado = "inscrito_en_espera";
+                    }                
+                    else{
+                        estado= "aforo_completo";
+                        std::cout<<"No se puede inscribir en esta actividad AFORO COMPLETO\n";
+                    }
                     break;
             }
             DataAux << "\n|" << id << "|" << titulo << "|" << estado << "|";

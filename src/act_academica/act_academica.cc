@@ -34,7 +34,7 @@ void Act_academica::SetId(){
         int id_max_c=0;
         std::getline(DataCom, linea2);
         while(std::getline(DataCom, linea2)){
-            std::istringstream ss2(linea1);
+            std::istringstream ss2(linea2);
             ss2.ignore(1);
             std::string idef_act_str_2;
             std::getline(ss2,idef_act_str_2,'|');
@@ -58,80 +58,82 @@ void Act_academica::SetId(){
     }
 }
 
-void Act_academica::RellenarDatosT(){
+void Act_academica::RellenarDatosT(int modo){
     std::string titulo, ponente, fecha, ubicacion, carrera;
     float precio;
     int aforomax, valor=1, fin=0, cant_ponentes;
     while(valor!=8){
-        switch(valor){
-            case 1:
-                std::cout<<"Introduzca el titulo de la actividad (Sin espacios):\n";
-                std::cin>>titulo;
-                titulo_= titulo;
-                if(valor==1 && fin!=0){
+        if(modo==0){//modo= 0 creacion de act. modo==1 modificacion de act
+            switch(valor){
+                case 1:
+                    std::cout<<"Introduzca el titulo de la actividad (Sin espacios):\n";
+                    std::cin>>titulo;
+                    titulo_= titulo;
+                    if(valor==1 && fin!=0){
+                        break;
+                    }
+                case 2:
+                    if(valor==2){
+                        ponentes_.clear();
+                    }
+                    std::cout<<"Cuantos ponentes tiene la actividad?\n";
+                    std::cin>>cant_ponentes;
+                    std::cout<<"Escribalo de la siguiente manera: Nombre_Apellido1\n";
+                    for(int i=0; i<cant_ponentes; i++){
+                        std::cout<<"Nombre de ponente "<<(i+1)<<": ";
+                        std::cin>>ponente;
+                        ponentes_.push_back(ponente);
+                    }                
+                    if(valor!=1){
+                        break;
+                    }
+                case 3:
+                    std::cout<<"Introduzca la fecha. Ejemplo: 25/03/2009\n";
+                    std::cin>>fecha_;
+                    if(valor!=1){
+                        break;
+                    }
+                case 4:
+                    std::cout<<"Introduzca la ubicacion (Sin espacios)\n";
+                    std::cin>>ubicacion_;
+                    if(valor!=1){
+                        break;
+                    }
+                case 5:
+                    std::cout<<"Introduzca el precio de la actividad:\n";
+                    std::cin>>precio;
+                    precio_=precio;
+                    if(valor!=1){
+                        break;
+                    }
+                case 6:
+                    std::cout<<"Introduzca el aforo maximo de la actividad:\n";
+                    std::cin>>aforomax;
+                    aforomax_=aforomax;
+                    if(valor!=1){
+                        break;
+                    }
+                case 7:
+                    std::cout<<"Introduzca a la carrera que se quiere asignar la actividad:\n";
+                    std::cout<<"Si no se incluye una carrera especifica escriba todas\n";
+                    std::cin>>carrera;
+                    carrera_= carrera;
                     break;
-                }
-            case 2:
-                if(valor==2){
-                    ponentes_.clear();
-                }
-                std::cout<<"Cuantos ponentes tiene la actividad?\n";
-                std::cin>>cant_ponentes;
-                std::cout<<"Escribalo de la siguiente manera: Nombre_Apellido1\n";
-                for(int i=0; i<cant_ponentes; i++){
-                    std::cout<<"Nombre de ponente "<<(i+1)<<": ";
-                    std::cin>>ponente;
-                    ponentes_.push_back(ponente);
-                }                
-                if(valor!=1){
+                case 8:
+                    std::cout<<"Saliendo de la asignacion de valores.\n";
                     break;
-                }
-            case 3:
-                std::cout<<"Introduzca la fecha. Ejemplo: 25/03/2009\n";
-                std::cin>>fecha_;
-                if(valor!=1){
+                default:
+                    std::cout<<"Dato incorrecto, seleccione de nuevo\n";
                     break;
-                }
-            case 4:
-                std::cout<<"Introduzca la ubicacion (Sin espacios)\n";
-                std::cin>>ubicacion_;
-                if(valor!=1){
-                    break;
-                }
-            case 5:
-                std::cout<<"Introduzca el precio de la actividad:\n";
-                std::cin>>precio;
-                precio_=precio;
-                if(valor!=1){
-                    break;
-                }
-            case 6:
-                std::cout<<"Introduzca el aforo maximo de la actividad:\n";
-                std::cin>>aforomax;
-                aforomax_=aforomax;
-                if(valor!=1){
-                    break;
-                }
-            case 7:
-                std::cout<<"Introduzca a la carrera que se quiere asignar la actividad:\n";
-                std::cout<<"Si no se incluye una carrera especifica escriba todas\n";
-                std::cin>>carrera;
-                carrera_= carrera;
-                break;
-            case 8:
-                std::cout<<"Saliendo de la asignacion de valores.\n";
-                break;
-            default:
-                std::cout<<"Dato incorrecto, seleccione de nuevo\n";
-                break;
+            }
         }
-
         if(valor!=8){
             std::cout<<"¿Que desea realizar ahora?\n 1. Editar titulo\n 2. Editar ponentes\n";
             std::cout<<" 3. Editar fecha\n 4. Editar ubicacion\n";
             std::cout<<" 5. Editar precio\n 6. Editar aforo maximo\n 7. Editar carrera\n 8. Guardar cambios\n";
             std::cin>>valor;
             fin= 1;
+            modo= 0;
         }
     }
     std::cout<<"\n";
@@ -234,6 +236,7 @@ bool Act_academica::ModificarActFCom(){
     std::string linea;
     bool fnd= false;
     if(!DataAct.is_open() || !DataAux.is_open()){
+        std::cout<<"No se han podido abrir los ficheros necesarios\n";
         return false;
     }
     

@@ -8,7 +8,7 @@ int main(){
     std::cout<<"Id nuevo: "<<a1.GetId()<<"\n";
 
     
-    a1.RellenarDatosT();
+    a1.RellenarDatosT(0);
     /*
     a1.SetCarrera("todos");
     a1.ImprimirDatos();

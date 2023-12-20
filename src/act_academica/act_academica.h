@@ -28,7 +28,7 @@ class Act_academica{
         void SetId();
         void SetCarrera(std::string carrera){carrera_= carrera;}
         //Funciones Propias
-        void RellenarDatosT();//Rellena los atributos de la clase leidos por texto
+        void RellenarDatosT(int modo);//Rellena los atributos de la clase leidos por texto
         bool RellenarDatosFAc(int id_act);//Rellena la clase con el identificador id_act del fichero ActAcademicas.txt 
         bool RellenarDatosFCom(int id_act);//Rellena la clase con el identificador id_act del fichero comunicacion.txt        
         bool ModificarActFCom();//Modifica la actividad academica del fichero de comunicacion

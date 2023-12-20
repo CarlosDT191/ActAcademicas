@@ -2,6 +2,7 @@
 //Aqui estan las funciones de lista de asistencia (agregar alumno, eliminar alumno, leer y mostrar lista de asistencia)
 
 #include "lista_asistencia.h"
+#include "alumno.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -77,5 +78,28 @@ bool Lista_asistencia::AnadirAlumno(int id_act, std::string correo){
 
     remove("src/BD/ListaAsistencia.txt");
     rename("src/BD/aux.txt","src/BD/ListaAsistencia.txt");
+
+
+    if(aforo_restante_==0){
+        std::ifstream DataCuentas("src/BD/cuentas.txt");
+        std::string linea_2;
+        std::getline(DataCuentas,linea_2);
+        while(std::getline(DataCuentas,linea_2)){
+            std::istringstream ss2(linea_2);
+            ss2.ignore(1);
+            std::string l_correo, rol_str;
+            std::getline(ss2,l_correo,'|');
+            std::getline(ss2,rol_str,'|');
+            std::getline(ss2,rol_str,'|');
+            int rol= std::stoi(rol_str);
+            if(rol==1 && l_correo!=correo){
+                Alumno a1;
+                a1.RellenarF(l_correo);
+                a1.CambiarEstado(0,id_act);
+            }
+        }
+        DataCuentas.close();
+    }
+
     return true;
 }

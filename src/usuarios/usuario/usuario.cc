@@ -39,7 +39,7 @@ bool Usuario::Login(){
                     if(l_correo == correo_){
                         std::getline(ss, l_password, '|');
                         for (int i = 0; i < 3 && CorrectPassword == false; i++){
-                            std::cout <<"Escriba la contraseña:" << std::endl;
+                            std::cout <<"Escriba la contraseña: ";
                             std::cin >>password;
                             if (l_password == password){
                                 password_ = password;
