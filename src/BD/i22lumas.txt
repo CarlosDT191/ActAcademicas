@@ -1,1 +1,3 @@
 |ACT.ACAD| TITULO | ESTADO |
+|1|ERASMUS|inscrito
+|3|Datos|nada|

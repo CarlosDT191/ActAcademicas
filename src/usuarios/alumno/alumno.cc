@@ -34,6 +34,7 @@ void Alumno::VerBandeja(){
 
 bool Alumno::VerDetalles(int id_act){
     std::string correo= GetCorreo();
+
     correo.erase(correo.length()-7);
     correo = "src/BD/" + correo + ".txt";
     std::ifstream DataMail(correo.c_str());
