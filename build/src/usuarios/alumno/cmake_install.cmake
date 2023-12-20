@@ -1,4 +1,4 @@
-# Install script for directory: /home/daniel/Escritorio/is/Trabajo/ActAcademicas/src/usuarios
+# Install script for directory: /home/daniel/Escritorio/is/Trabajo/ActAcademicas/src/usuarios/alumno
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,13 +40,5 @@ endif()
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/alumno/cmake_install.cmake")
-  include("/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/organizador/cmake_install.cmake")
-  include("/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/usuario/cmake_install.cmake")
-
 endif()
 

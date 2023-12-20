@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/alumno-main.dir/alumno-main.cc.o" -o alumno-main  libalumno.a ../../act_academica/libact_academica.a ../usuario/libusuario.a 

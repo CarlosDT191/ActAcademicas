@@ -12,6 +12,10 @@
 /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/lista_asistencia/CMakeFiles/rebuild_cache.dir
 /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/CMakeFiles/edit_cache.dir
 /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/CMakeFiles/rebuild_cache.dir
+/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/alumno/CMakeFiles/alumno.dir
+/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/alumno/CMakeFiles/alumno-main.dir
+/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/alumno/CMakeFiles/edit_cache.dir
+/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/alumno/CMakeFiles/rebuild_cache.dir
 /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/organizador/CMakeFiles/organizador.dir
 /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/organizador/CMakeFiles/organizador-main.dir
 /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/src/usuarios/organizador/CMakeFiles/edit_cache.dir
