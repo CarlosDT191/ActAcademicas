@@ -169,6 +169,32 @@ lista_asistencia-main/fast:
 .PHONY : lista_asistencia-main/fast
 
 #=============================================================================
+# Target rules for targets named alumno
+
+# Build rule for target.
+alumno: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 alumno
+.PHONY : alumno
+
+# fast build rule for target.
+alumno/fast:
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno.dir/build.make src/usuarios/alumno/CMakeFiles/alumno.dir/build
+.PHONY : alumno/fast
+
+#=============================================================================
+# Target rules for targets named alumno-main
+
+# Build rule for target.
+alumno-main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 alumno-main
+.PHONY : alumno-main
+
+# fast build rule for target.
+alumno-main/fast:
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno-main.dir/build.make src/usuarios/alumno/CMakeFiles/alumno-main.dir/build
+.PHONY : alumno-main/fast
+
+#=============================================================================
 # Target rules for targets named organizador
 
 # Build rule for target.
@@ -230,6 +256,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... act_academica"
 	@echo "... act_academica-main"
+	@echo "... alumno"
+	@echo "... alumno-main"
 	@echo "... lista_asistencia"
 	@echo "... lista_asistencia-main"
 	@echo "... organizador"

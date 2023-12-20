@@ -44,12 +44,13 @@ bool Organizador::VerActAcademicasConf()
     std::string linea;
     int contador = 0;
 
+    std::cout << "\n                          ACTIVIDADES CONFIRMADAS\n";
     while (std::getline(DataActAcad, linea))
     {
         ++contador;
         std::cout <<linea << "\n";
     }
-
+    std::cout << "\n";
     DataActAcad.close();
 
     if (contador > 1)
@@ -63,7 +64,7 @@ bool Organizador::VerActAcademicasConf()
 }
 //Lee las actividades académicas por confirmar
 bool Organizador::VerActAcademicasNoConf() {
-    std::ifstream DataActAcad("src/BD/ActAcademicas.txt");
+    std::ifstream DataActAcad("src/BD/comunicacion.txt");
 
     if (!DataActAcad.is_open()) {
         std::cerr << "Error al abrir el archivo 'ActAcademicas.txt'\n";
@@ -72,12 +73,12 @@ bool Organizador::VerActAcademicasNoConf() {
 
     std::string linea;
     int contador = 0;
-
+    std::cout << "\n                          ACTIVIDADES NO CONFIRMADAS\n";
     while (std::getline(DataActAcad, linea)) {
         ++contador;
         std::cout <<linea << "\n";
     }
-
+    std::cout << "\n";
     DataActAcad.close();
     if (contador > 1)
     {

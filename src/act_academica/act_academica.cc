@@ -237,7 +237,7 @@ bool Act_academica::ModificarActFCom(){
             for(auto j: ponentes_){
                 DataAux<<j<<" ";
             }
-            DataAux<<"|"<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+            DataAux<<"|"<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|";
             fnd= true;
         }
         else{
@@ -301,7 +301,7 @@ void Act_academica::ImprimirFAc(){
     for(auto j : ponentes_){
         DataAct<<j<<" ";
     }
-    DataAct<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+    DataAct<< "|" << fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
     DataAct.close();
 
 }
@@ -312,6 +312,6 @@ void Act_academica::ImprimirFCom(){
     for(auto j : ponentes_){
         DataCom<<j<<" ";
     }
-    DataCom<<fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|"<<carrera_<<"|";
+    DataCom << "|" << fecha_<<"|"<<ubicacion_<<"|"<<precio_<<"|"<<aforomax_<<"|";
     DataCom.close();
 }

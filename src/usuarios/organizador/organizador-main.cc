@@ -10,17 +10,12 @@ int main() {
     // Crear un objeto Organizador
     Organizador organizador("organizador@mail.com", "contrasena", "Informatica");
 
-    // Llamar a la función CrearActAcademica
+    /* Llamar a la función CrearActAcademica
     organizador.CrearActAcademica();
-
-    /* ID de la actividad académica a modificar
-    int id_actividad;
-
-    std::cout << "Ingrese el ID de la actividad académica a modificar: ";
-    std::cin >> id_actividad;
+    
 
     // Llamar a la función ModificarActAcademica
-    bool resultado = organizador.ModificarActAcademica(id_actividad);
+    bool resultado = organizador.ModificarActAcademica(5);
 
     // Verificar el resultado
     if (resultado) {
@@ -28,6 +23,7 @@ int main() {
     } else {
         std::cout << "No se pudo modificar la actividad académica." << std::endl;
     }
+    */
 
     // Llamar a la función VerActAcademicasConf
     bool actividadesConfirmadas = organizador.VerActAcademicasConf();
@@ -40,6 +36,7 @@ int main() {
         std::cout << "No hay actividades académicas confirmadas.\n";
     }
 
+
     bool actividadesNoConfirmadas = organizador.VerActAcademicasNoConf();
 
     // Verificar el resultado
@@ -49,6 +46,6 @@ int main() {
     } else {
         std::cout << "No hay actividades académicas por confirmar.\n";
     }
-    */
+
     return 0;
 }

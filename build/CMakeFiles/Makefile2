@@ -133,19 +133,39 @@ src/lista_asistencia/clean: src/lista_asistencia/CMakeFiles/lista_asistencia-mai
 # Directory level rules for directory src/usuarios
 
 # Recursive "all" directory target.
+src/usuarios/all: src/usuarios/alumno/all
 src/usuarios/all: src/usuarios/organizador/all
 src/usuarios/all: src/usuarios/usuario/all
 .PHONY : src/usuarios/all
 
 # Recursive "preinstall" directory target.
+src/usuarios/preinstall: src/usuarios/alumno/preinstall
 src/usuarios/preinstall: src/usuarios/organizador/preinstall
 src/usuarios/preinstall: src/usuarios/usuario/preinstall
 .PHONY : src/usuarios/preinstall
 
 # Recursive "clean" directory target.
+src/usuarios/clean: src/usuarios/alumno/clean
 src/usuarios/clean: src/usuarios/organizador/clean
 src/usuarios/clean: src/usuarios/usuario/clean
 .PHONY : src/usuarios/clean
+
+#=============================================================================
+# Directory level rules for directory src/usuarios/alumno
+
+# Recursive "all" directory target.
+src/usuarios/alumno/all: src/usuarios/alumno/CMakeFiles/alumno.dir/all
+src/usuarios/alumno/all: src/usuarios/alumno/CMakeFiles/alumno-main.dir/all
+.PHONY : src/usuarios/alumno/all
+
+# Recursive "preinstall" directory target.
+src/usuarios/alumno/preinstall:
+.PHONY : src/usuarios/alumno/preinstall
+
+# Recursive "clean" directory target.
+src/usuarios/alumno/clean: src/usuarios/alumno/CMakeFiles/alumno.dir/clean
+src/usuarios/alumno/clean: src/usuarios/alumno/CMakeFiles/alumno-main.dir/clean
+.PHONY : src/usuarios/alumno/clean
 
 #=============================================================================
 # Directory level rules for directory src/usuarios/organizador
@@ -240,7 +260,7 @@ src/act_academica/CMakeFiles/act_academica-main.dir/clean:
 src/lista_asistencia/CMakeFiles/lista_asistencia.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/lista_asistencia/CMakeFiles/lista_asistencia.dir/build.make src/lista_asistencia/CMakeFiles/lista_asistencia.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/lista_asistencia/CMakeFiles/lista_asistencia.dir/build.make src/lista_asistencia/CMakeFiles/lista_asistencia.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=5,6 "Built target lista_asistencia"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=9,10 "Built target lista_asistencia"
 .PHONY : src/lista_asistencia/CMakeFiles/lista_asistencia.dir/all
 
 # Build rule for subdir invocation for target.
@@ -266,7 +286,7 @@ src/lista_asistencia/CMakeFiles/lista_asistencia.dir/clean:
 src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/all: src/lista_asistencia/CMakeFiles/lista_asistencia.dir/all
 	$(MAKE) $(MAKESILENT) -f src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/build.make src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/build.make src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=7,8 "Built target lista_asistencia-main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=11,12 "Built target lista_asistencia-main"
 .PHONY : src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -286,6 +306,61 @@ src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/clean:
 .PHONY : src/lista_asistencia/CMakeFiles/lista_asistencia-main.dir/clean
 
 #=============================================================================
+# Target rules for target src/usuarios/alumno/CMakeFiles/alumno.dir
+
+# All Build rule for target.
+src/usuarios/alumno/CMakeFiles/alumno.dir/all: src/act_academica/CMakeFiles/act_academica.dir/all
+src/usuarios/alumno/CMakeFiles/alumno.dir/all: src/usuarios/usuario/CMakeFiles/usuario.dir/all
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno.dir/build.make src/usuarios/alumno/CMakeFiles/alumno.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno.dir/build.make src/usuarios/alumno/CMakeFiles/alumno.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=5,6 "Built target alumno"
+.PHONY : src/usuarios/alumno/CMakeFiles/alumno.dir/all
+
+# Build rule for subdir invocation for target.
+src/usuarios/alumno/CMakeFiles/alumno.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/usuarios/alumno/CMakeFiles/alumno.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles 0
+.PHONY : src/usuarios/alumno/CMakeFiles/alumno.dir/rule
+
+# Convenience name for target.
+alumno: src/usuarios/alumno/CMakeFiles/alumno.dir/rule
+.PHONY : alumno
+
+# clean rule for target.
+src/usuarios/alumno/CMakeFiles/alumno.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno.dir/build.make src/usuarios/alumno/CMakeFiles/alumno.dir/clean
+.PHONY : src/usuarios/alumno/CMakeFiles/alumno.dir/clean
+
+#=============================================================================
+# Target rules for target src/usuarios/alumno/CMakeFiles/alumno-main.dir
+
+# All Build rule for target.
+src/usuarios/alumno/CMakeFiles/alumno-main.dir/all: src/act_academica/CMakeFiles/act_academica.dir/all
+src/usuarios/alumno/CMakeFiles/alumno-main.dir/all: src/usuarios/alumno/CMakeFiles/alumno.dir/all
+src/usuarios/alumno/CMakeFiles/alumno-main.dir/all: src/usuarios/usuario/CMakeFiles/usuario.dir/all
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno-main.dir/build.make src/usuarios/alumno/CMakeFiles/alumno-main.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno-main.dir/build.make src/usuarios/alumno/CMakeFiles/alumno-main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=7,8 "Built target alumno-main"
+.PHONY : src/usuarios/alumno/CMakeFiles/alumno-main.dir/all
+
+# Build rule for subdir invocation for target.
+src/usuarios/alumno/CMakeFiles/alumno-main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/usuarios/alumno/CMakeFiles/alumno-main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles 0
+.PHONY : src/usuarios/alumno/CMakeFiles/alumno-main.dir/rule
+
+# Convenience name for target.
+alumno-main: src/usuarios/alumno/CMakeFiles/alumno-main.dir/rule
+.PHONY : alumno-main
+
+# clean rule for target.
+src/usuarios/alumno/CMakeFiles/alumno-main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/usuarios/alumno/CMakeFiles/alumno-main.dir/build.make src/usuarios/alumno/CMakeFiles/alumno-main.dir/clean
+.PHONY : src/usuarios/alumno/CMakeFiles/alumno-main.dir/clean
+
+#=============================================================================
 # Target rules for target src/usuarios/organizador/CMakeFiles/organizador.dir
 
 # All Build rule for target.
@@ -293,7 +368,7 @@ src/usuarios/organizador/CMakeFiles/organizador.dir/all: src/act_academica/CMake
 src/usuarios/organizador/CMakeFiles/organizador.dir/all: src/usuarios/usuario/CMakeFiles/usuario.dir/all
 	$(MAKE) $(MAKESILENT) -f src/usuarios/organizador/CMakeFiles/organizador.dir/build.make src/usuarios/organizador/CMakeFiles/organizador.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/usuarios/organizador/CMakeFiles/organizador.dir/build.make src/usuarios/organizador/CMakeFiles/organizador.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=9,10 "Built target organizador"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=13,14 "Built target organizador"
 .PHONY : src/usuarios/organizador/CMakeFiles/organizador.dir/all
 
 # Build rule for subdir invocation for target.
@@ -321,7 +396,7 @@ src/usuarios/organizador/CMakeFiles/organizador-main.dir/all: src/usuarios/organ
 src/usuarios/organizador/CMakeFiles/organizador-main.dir/all: src/usuarios/usuario/CMakeFiles/usuario.dir/all
 	$(MAKE) $(MAKESILENT) -f src/usuarios/organizador/CMakeFiles/organizador-main.dir/build.make src/usuarios/organizador/CMakeFiles/organizador-main.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/usuarios/organizador/CMakeFiles/organizador-main.dir/build.make src/usuarios/organizador/CMakeFiles/organizador-main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=11,12 "Built target organizador-main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=15,16 "Built target organizador-main"
 .PHONY : src/usuarios/organizador/CMakeFiles/organizador-main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -347,7 +422,7 @@ src/usuarios/organizador/CMakeFiles/organizador-main.dir/clean:
 src/usuarios/usuario/CMakeFiles/usuario.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/usuarios/usuario/CMakeFiles/usuario.dir/build.make src/usuarios/usuario/CMakeFiles/usuario.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/usuarios/usuario/CMakeFiles/usuario.dir/build.make src/usuarios/usuario/CMakeFiles/usuario.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=13,14 "Built target usuario"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=17,18 "Built target usuario"
 .PHONY : src/usuarios/usuario/CMakeFiles/usuario.dir/all
 
 # Build rule for subdir invocation for target.
@@ -373,7 +448,7 @@ src/usuarios/usuario/CMakeFiles/usuario.dir/clean:
 src/usuarios/usuario/CMakeFiles/usuario-main.dir/all: src/usuarios/usuario/CMakeFiles/usuario.dir/all
 	$(MAKE) $(MAKESILENT) -f src/usuarios/usuario/CMakeFiles/usuario-main.dir/build.make src/usuarios/usuario/CMakeFiles/usuario-main.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/usuarios/usuario/CMakeFiles/usuario-main.dir/build.make src/usuarios/usuario/CMakeFiles/usuario-main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=15,16 "Built target usuario-main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/daniel/Escritorio/is/Trabajo/ActAcademicas/build/CMakeFiles --progress-num=19,20 "Built target usuario-main"
 .PHONY : src/usuarios/usuario/CMakeFiles/usuario-main.dir/all
 
 # Build rule for subdir invocation for target.
