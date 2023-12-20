@@ -6,11 +6,11 @@
 #include <iostream>
 #include <fstream>
 
-Organizador::Organizador(std::string correo, std::string password, std::string carrera){
+Organizador::Organizador(std::string correo, std::string password){
     SetCorreo(correo);
     SetPassword(password);
     SetRol(3);
-    SetCarrera(carrera);
+    SetCarrera("nada");
 }
 
 void Organizador::CrearActAcademica()

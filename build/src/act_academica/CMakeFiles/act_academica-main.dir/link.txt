@@ -1,1 +1,0 @@
-/usr/bin/c++ "CMakeFiles/act_academica-main.dir/act_academica-main.cc.o" -o act_academica-main  libact_academica.a 

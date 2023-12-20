@@ -10,7 +10,7 @@
 class Organizador : public Usuario{
     private:
     public:
-        Organizador(std::string correo, std::string password, std::string carrera);
+        Organizador(std::string correo, std::string password);
         void CrearActAcademica();
 
     // Función para modificar una actividad académica

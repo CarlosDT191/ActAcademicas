@@ -1,6 +1,7 @@
 |ID|   TITULO  |         PONENTES         | FECHA  |  UBICACION  |PRECIO|AFORO|CARRERA|
 |1|Charla_ERASMUS|Maria_Gonzalez Pablo_Martinez Manuel_Bravo |12/03/23|Aula_Magna|2.5|150|todas|
-|3|Divulgacion_ciencia_computadores|Felipe_Maria Oscar_Bravo |01/10/24|Aula_B1|1.5|100|informatica|
 |5|Explicacion_de_ramas|Alfonso_Gallardo Amadeo_Llados |11/02/24|Aula_P10|0.0|50|informatica|
 |6|Salidas_informatica|Ruben_Doblas Leo_Paredes|11/01/24|Aula_Magna|3.5|150|informatica|
-|7|Explicacion_de_ramas|Samuel_Luque Fernando_Martinez|05/07/2024|Aulario_Averroes|0.0|300|mecanica|
+|7|Explicacion_de_ramas|Samuel_Luque Fernando_Martinez|05/07/2024|Aulario_Averroes|0.0|300|forestal|
+|4|Explicacion_de_ramas|Pedro_Ribera |03/07/2024|Aula_P10|1.50|100|mecanica|
+|3|Divulgacion_ciencia_computadores|Felipe_Maria Oscar_Bravo |01/10/24|Aula_B1|1.5|100|informatica|
