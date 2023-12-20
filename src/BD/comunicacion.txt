@@ -1,1 +1,2 @@
 |ID|     TITULO    |           PONENTES           | FECHA  |UBICACION|PRECIO|AFORO|CARRERA|
+|2|Explicacion_salidas|Maria_Beltran Fermin_Trujillo |01/01/2024|Aulario_Averroes|2.50|100|informatica|

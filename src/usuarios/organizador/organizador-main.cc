@@ -8,7 +8,7 @@
 
 int main() {
     // Crear un objeto Organizador
-    Organizador organizador("organizador@mail.com", "contrasena", "Informatica");
+    Organizador organizador("organizador@mail.com", "contrasena");
 
     /* Llamar a la función CrearActAcademica
     organizador.CrearActAcademica();

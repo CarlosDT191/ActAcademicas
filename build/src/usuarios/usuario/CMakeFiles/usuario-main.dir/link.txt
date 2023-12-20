@@ -1,1 +1,0 @@
-/usr/bin/c++ "CMakeFiles/usuario-main.dir/usuario-main.cc.o" -o usuario-main  libusuario.a 

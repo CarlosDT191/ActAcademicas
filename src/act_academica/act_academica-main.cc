@@ -7,7 +7,9 @@ int main(){
     a1.SetId();
     std::cout<<"Id nuevo: "<<a1.GetId()<<"\n";
 
+    
     a1.RellenarDatosT();
+    /*
     a1.SetCarrera("todos");
     a1.ImprimirDatos();
 
@@ -25,6 +27,7 @@ int main(){
     a1.RellenarDatosFCom(4);
     a1.EliminarActCom(4);
     a1.ImprimirFAc();
+    */
 
     return 0;
 }

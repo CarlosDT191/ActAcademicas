@@ -13,7 +13,7 @@ private:
 
 public:
     //Constructor
-    Director_Acad(std::string correo, std::string password, std::string carrera);
+    Director_Acad(std::string correo, std::string password);
     // Función para ver todas las actividades pendientes en "comunicacion.txt"
     void VerActPen();
     // Funcion eliminar act acad

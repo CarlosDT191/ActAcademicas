@@ -9,12 +9,12 @@
 #include <sstream>
     
     //Constructor
-    Director_Acad::Director_Acad(std::string correo, std::string password, std::string carrera)
+    Director_Acad::Director_Acad(std::string correo, std::string password)
     {
     SetCorreo(correo);
     SetPassword(password);
     SetRol(2);
-    SetCarrera(carrera);
+    SetCarrera("nada");
     }
     //Funcion para ver las actividades pendientes
     void Director_Acad::VerActPen()

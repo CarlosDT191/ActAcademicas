@@ -1,3 +1,4 @@
 |ACT.ACAD| TITULO | ESTADO |
-|1|ERASMUS|inscrito
-|3|Datos|nada|
+|1|Charla_ERASMUS|inscrito|
+|5|Explicacion_de_ramas|nada|
+|6|Salidas_informatica|inscrito_en_espera|
