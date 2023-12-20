@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/lista_asistencia-main.dir/lista_asistencia-main.cc.o" -o lista_asistencia-main  liblista_asistencia.a ../usuarios/alumno/libalumno.a liblista_asistencia.a ../usuarios/alumno/libalumno.a ../act_academica/libact_academica.a ../usuarios/usuario/libusuario.a 

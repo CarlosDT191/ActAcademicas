@@ -5,8 +5,8 @@
 
 
 int main(){
-    Alumno a1("p12tofrc@uco.es","patata123","mecanica");
-    
+    Alumno a1("i22lumas@uco.es","patata123","mecanica");
+    /*
     std::cout<<"Correo: "<<a1.GetCorreo()<<"\n";
     std::cout<<"Contraseña: "<<a1.GetPassword()<<"\n";
     std::cout<<"Carrera: "<<a1.GetCarrera()<<"\n";
@@ -23,10 +23,10 @@ int main(){
         std::cout<<"Acceso denegado\n";
     }
 
-    a1.CambiarEstado(0,1);
-    a1.CambiarEstado(1,1);
-    a1.CambiarEstado(2,1);
+    */
+    a1.CambiarEstado(2,5);
 
+    /*
     std::vector<int> vec= a1.VectorIdsInscrip();
     std::cout<<"Ids en los que esta inscrito: ";
     for(int j: vec){
@@ -38,6 +38,6 @@ int main(){
     std::cout<<"Correo: "<<a1.GetCorreo()<<"\n";
     std::cout<<"Contraseña: "<<a1.GetPassword()<<"\n";
     std::cout<<"Carrera: "<<a1.GetCarrera()<<"\n";
-    
+    */
     return 0;
 }

@@ -18,14 +18,15 @@
     SetCarrera("nada");
     }
     //Funcion para ver las actividades pendientes
-    void Director_Acad::VerActPen()
+    bool Director_Acad::VerActPen()
     {
         std::ifstream DataComunicacion("src/BD/comunicacion.txt");
+        int contador=0;
 
         if (!DataComunicacion.is_open())
         {
             std::cerr << "Error al abrir el archivo 'comunicacion.txt'\n";
-            return;
+            return false;
         }
 
         std::string linea;
@@ -35,9 +36,16 @@
         while (std::getline(DataComunicacion, linea))
         {
             std::cout << linea << "\n";
+            contador++;
         }
         std::cout << "\n";
         DataComunicacion.close();
+        if(contador<2){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     
@@ -87,7 +95,7 @@
         return fnd;
     }
 
-    void Director_Acad::ConfirmarInscripcion(std::string correo, int id_act) {
+    bool Director_Acad::ConfirmarInscripcion(std::string correo, int id_act) {
         std::string correo_dominio=correo;
         std::string direccion=("src/BD/" + correo.erase(correo.length()-7) + ".txt");
         //Abrimos los archivos del correo sin el @uco.es y creamos un fichero temporal para guardar los datos
@@ -96,13 +104,13 @@
 
         if (!DataMail.is_open()) {
             std::cerr << "Error al abrir el archivo 'datamail.txt' " << "\n";
-            return;
+            return false;
         }
 
         if (!DataTemp.is_open()) {
             std::cerr << "Error al abrir el archivo temporal 'temp.txt'\n";
             DataMail.close();
-            return;
+            return false;
         }
 
         std::string linea_1;
@@ -139,7 +147,7 @@
         // Verificar si se encontró y actualizó la actividad
         if (!fnd) {
             std::remove("src/BD/temp.txt");  // Eliminar el archivo temporal
-            return;
+            return fnd;
         }
 
         // Renombrar el archivo temporal al archivo original
@@ -148,10 +156,37 @@
 
         // Añadir al alumno en listaasistencia.txt
         Lista_asistencia l1;
-        l1.AnadirAlumno(id_act, correo_dominio);
+        return l1.AnadirAlumno(id_act, correo_dominio);
     }
   
-/*
+
 bool Director_Acad::EnviarAct(int id_act){
     Mailing M;
-}*/
+    M.AlmacenarFAc(id_act);
+    std::ifstream DataCuentas("src/BD/cuentas.txt");
+    if(!DataCuentas.is_open()){
+        std::cout<<"Error al intentar abrir el fichero de 'cuentas.txt'\n";
+        return false;
+    }
+    std::string linea;
+    std::getline(DataCuentas,linea);
+    while(std::getline(DataCuentas,linea)){
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::string correo;
+        std::getline(ss,correo,'|');
+        M.EnviarCorreo(correo);
+    }
+    DataCuentas.close();
+
+    std::ofstream ListData("src/BD/ListaAsistencia.txt",std::ios::app);
+    if(!ListData.is_open()){
+        std::cout<<"Ha ocurrido un error intentando leer el fichero 'ListaAsistencia.txt'\n";
+        return false;
+    }
+    Act_academica A;
+    A.RellenarDatosFAc(id_act);
+    ListData<<"\n|"<<id_act<<"|"<<A.GetAforoMax()<<"|"<<" |";
+    ListData.close();
+    return true;
+}

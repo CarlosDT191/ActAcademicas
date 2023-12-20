@@ -4,14 +4,20 @@
 #include "director_acad.h"
 #include "alumno.h"
 #include "act_academica.h"
+#include "mailing.h"
+#include "lista_asistencia.h"
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <string>
+#include <sstream>
 
 bool menuInicial(Usuario &user){
     int valor_entrada=0;
+    std::ifstream DataAct("src/BD/ActAcademicas.txt");
+    std::string linea;
     while(valor_entrada!=3){
-        std::cout<<"SELECCIONE UNA OPCION:\n 1. Login\n 2. Acceder como invitado\n 3. Salir\n";
+        std::cout<<"SELECCIONE UNA OPCION:\n 1. Login\n 2. Acceder como invitado\n 3. |<- SALIR\n";
         std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
@@ -19,13 +25,12 @@ bool menuInicial(Usuario &user){
                 break;
             case 2:
                 std::cout<<"Como invitado unicamente puede ver las actividades academicas subidas\n";
-                std::ifstream DataAct("../BD/ActAcademicas.txt");
-                std::string linea;
                 while(std::getline(DataAct,linea)){
-                    std::cout<<linea;
+                    std::cout<<linea<<"\n";
                 }
                 DataAct.close();
                 std::cout<<"Saliendo del programa\n";
+                return false;
                 break;
             case 3:
                 std::cout<<"Saliendo del programa\n";
@@ -33,38 +38,34 @@ bool menuInicial(Usuario &user){
                 break;
             default:
                 std::cout<<"Valor introducido incorrecto, vuelva a introducirlo\n";
-                break;
         }
     }
 }
 
 Alumno ConvertToAlumn(Usuario* user){
-    if(Alumno* alum= dynamic_cast<Alumno*>(user)){
-        return *alum;
-    }
+    Alumno alum(user->GetCorreo(),user->GetPassword(),user->GetCarrera());
+    return alum;
 }
 
 Organizador ConvertToOrg(Usuario* user){
-    if(Organizador* org= dynamic_cast<Organizador*>(user)){
-        return *org;
-    }
+    Organizador org(user->GetCorreo(),user->GetPassword());
+    return org;
 }
 
-Director_acad ConvertToDir(Usuario* user){
-    if(Director_acad* dir= dynamic_cast<Director_acad*>(user)){
-        return *dir;
-    }
+Director_Acad ConvertToDir(Usuario* user){
+    Director_Acad dir(user->GetCorreo(),user->GetPassword());
+    return dir;
 }
 
 void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
     int valor=0;
     while(valor!=3){
-        if(estado=="Nada"){
-            std::cout<<"Seleccione una opcion:\n 1. Preinscribirse\n 2. Salir";
+        if(estado=="nada"){
+            std::cout<<"Seleccione una opcion:\n 1. Preinscribirse\n 2. |<- VOLVER MENU INICIAL\n";
             std::cin>>valor;
             switch(valor){
                 case 1:
-                    alum.CambiarEstado(0, id_act);//NADA --->PREINSCRITO
+                    alum.CambiarEstado(1, id_act);//NADA --->PREINSCRITO
                 case 2:
                     valor++;
                     break;
@@ -73,8 +74,8 @@ void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
             }
         }
 
-        else if(estado="Preinscrito"){
-            std::cout<<"Seleccione una opcion:\n 1. Cancelar preinscripcion\n2. Inscribirse\n 3. Salir";
+        else if(estado=="preinscrito"){
+            std::cout<<"Seleccione una opcion:\n 1. Cancelar preinscripcion\n2. Inscribirse\n 3. |<- VOLVER MENU INICIAL\n";
             std::cin>>valor;
             switch(valor){
                 case 1:
@@ -82,117 +83,138 @@ void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
                         std::cout<<"Estado cambiado correctamente\n";
                     }
                 case 2:
-                    if(alum.CambiarEstado(1, id_act)){//NADA ---> PREINSCRITO
-                        std::cout<<"Estado cambiado correctamente\n";
-                    }
-                case 3:
                     if(alum.CambiarEstado(2, id_act)){//PREINSCRITO ---> INSCRITO
                         std::cout<<"Estado cambiado correctamente\n";
                     }
+                    break;
+                case 3:
                     break;
                 default:
                     std::cout<<"Valor introducido incorrecto, saliendo de acceder a una actividad academica\n";
             }
         }
+
+        else{
+            std::cout<<"No se puede cambiar estado en esta actividad, volviendo al menu inicial\n";
+        }
     }
 }
 
-void MenuDetalleControlInscrip(Director_acad &dir){
-    std::ifstream DataUsers("../BD/cuentas.txt");
+void MenuDetalleControlInscrip(Director_Acad &dir){
+    std::ifstream DataUsers("src/BD/cuentas.txt");
     if(DataUsers.is_open()){
+        std::cout<<"\n                TODAS LAS CUENTAS CON ACCESO A INSCRIPCIONES\n";
+        std::string linea;
+        std::getline(DataUsers,linea);
+        std::cout<<linea<<"\n";
         while(std::getline(DataUsers,linea)){
-            std::cout<<linea<<"\n";
+            std::istringstream ss(linea);
+            std::string rol_str;
+            ss.ignore(1);
+            std::getline(ss,rol_str,'|');
+            std::getline(ss,rol_str,'|');
+            std::getline(ss,rol_str,'|');
+            int rol= std::stoi(rol_str);
+            if(rol==1){
+                std::cout<<linea<<"\n";
+            }
         }
     }
     DataUsers.close();
     bool error= true;
     while(error!=true){
-        std::cout<<"Escriba el correo del alumno que quiera seleccionar para confirmar inscripcion\n";
+        std::cout<<"\nEscriba el correo del alumno que quiera seleccionar para confirmar inscripcion:\n";
         std::string nombre;
         std::cin>>nombre;
         Alumno a1;
         if(!(a1.RellenarF(nombre))){//Si no encuentra el correo en "cuentas.txt"
-            std::cout<<"Correo inexistente:\n 1. Seguir intentandolo\n 2. Salir";
+            std::cout<<"Correo inexistente:\n 1. Seguir intentandolo\n 2. |<- VOLVER MENU INICIAL\n";
             int datsalir1;
             std::cin>>datsalir1;
             if(datsalir1==2){
                 error= false;
             }
             else if(datsalir1!=1 && datsalir1!=2){
-                std::cout<<"Dato incorrecto, saliendo de la seccion\n";
+                std::cout<<"Dato incorrecto, volviendo al menu inicial\n";
                 error= false;
             }
         }
         else{//Si encuentra el correo en "cuentas.txt"
-            std::cout<<"Inscripciones pendientes de "<<a1.GetCorreo()<<": ";
-            if((a1.VectorIdsInscrip).size()!=0){//Si la cuenta SÍ tiene inscripciones pendientes
-                for(auto i : a1.VectorIdsInscrip()){
-                    std::cout<<i<<" ";
-                }
-                std::cout<<"\n";
-                int opcion;
-                std::cout<<"Selecciona la inscripcion a confirmar: ";
-                std::cin>>opcion;
-                bool id_encontrado= false;
-                for(auto j : a1.VectorIdsInscrip()){
-                    if(j==opcion){
-                        id_encontrado= true;
-                    }
-                }//Si hay fallo al recorrer alguno de estos vectores se puede cambiar funcion ConfirmarInscripcion
+            if(dir.VerSolicitudes(nombre)){
+                    int opcion;
+                    std::cout<<"Seleccione la inscripcion a confirmar: ";
+                    std::cin>>opcion;
+                    bool id_encontrado= false;
+                    for(auto j : a1.VectorIdsInscrip()){
+                        if(j==opcion){
+                            id_encontrado= true;
+                        }
+                    }//Si hay fallo al recorrer alguno de estos vectores se puede cambiar funcion ConfirmarInscripcion
 
-                if(id_encontrado){//La inscripcion en espera a confirmar es correcta
-                    if(dir.ConfirmarInscripcion(nombre, opcion)){
-                        std::cout<<"Inscripcion confirmada correctamente\n";
+                    if(id_encontrado){//La inscripcion en espera a confirmar es correcta
+                        if(dir.ConfirmarInscripcion(nombre, opcion)){
+                            std::cout<<"Inscripcion confirmada correctamente\n";
+                        }
+                        else{
+                            std::cout<<"Error al confirmar inscripcion\n";
+                        }
+                        error= true;
                     }
+
                     else{
-                        std::cout<<"Error al confirmar inscripcion\n";
+                        std::cout<<"ID introducido incorrecto, volviendo al menu inicial\n";
+                        error= true;
                     }
-                    error= true;
-                }
-
-                else{
-                    std::cout<<"ID introducido incorrecto, saliendo de la seccion\n";
-                    error= true;
-                }
             }
             else{//Si la cuenta NO tiene inscripciones pendientes
                 std::cout<<"No hay inscripciones pendientes de "<<a1.GetCorreo()<<"\n";
-                std::cout<<"Seleccione una opcion\n 1. Aceptar otra inscripcion\n 2. Salir\n";
+                std::cout<<"Seleccione una opcion:\n 1. Aceptar otra inscripcion\n 2. |<- VOLVER MENU INICIAL\n";
                 int datsalir3;
                 std::cin>>datsalir3;
                 if(datsalir3==2){
                     error= false;
                 }
                 else if(datsalir3!=1 && datsalir3!=2){
-                    std::cout<<"Dato incorrecto, saliendo de la seccion\n";
+                    std::cout<<"Dato incorrecto, volviendo al menu inicial\n";
                     error= false;
                 }
             }
         }
     }
-
 }
 
 
 void menuAlumno(Alumno &alum){
-    std::cout<<"Bienvenido de vuelta "<<alum.GetCorreo()<<"\n";
+    std::string nombre= alum.GetCorreo();
+    nombre.erase(nombre.length()-7);
+    std::cout<<"\nBienvenido de vuelta "<<nombre<<"\n";
     int valor_entrada=0;
     while(valor_entrada!=5){
-        std::cout<<"Seleccione una opcion:\n 1. Ver bandeja\n 2. Acceder a actividad academica\n";
-        std::cout<<" 3. Ver pre-inscripciones\n 4. Ver inscripciones\n 5. Salir\n";
+        std::cout<<"\n|                       MENU INICIAL                      |\n";
+        std::cout<<"|---------------------------------------------------------|\n";
+        std::cout<<"Seleccione una opcion:\n 1. Ver bandeja\n 2. Ver en detalle una actividad academica\n";
+        std::cout<<" 3. Ver pre-inscripciones\n 4. Ver inscripciones\n 5. |<- SALIR\n";
         std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
-                a1.VerBandeja();
+                alum.VerBandeja();
                 break;        
             case 2:
-                std::cout<<"¿Qué actividad académica quiere ver en detalle?\n";
-                int id_actividad;
+                std::cout<<"¿Qué actividad académica quiere ver en detalle? ";
+                int id_actividad, opcion_act;
                 std::cin>>id_actividad;
                 alum.VerDetalles(id_actividad);
-                std::string estado=alum.VerEstadoAct(id_actividad);
-                MenuDetalleAct(estado, alum, id_actividad);
-                break;        
+                std::cout<<"¿Quiere cambiar su estado respecto a esta actividad? (Preinscripcion e inscripcion)\n";
+                std::cout<<" 1. Si\n 2. |<- VOLVER AL MENU INICIAL\n";
+                std::cin>>opcion_act;
+                if(opcion_act==1){
+                    std::string estado=alum.VerEstadoAct(id_actividad);
+                    MenuDetalleAct(estado, alum, id_actividad);
+                }
+                else if(opcion_act!=1 && opcion_act!=2){
+                    std::cout<<"Valor introducido incorrecto, volviendo al menu inicial\n";
+                }
+                break;
             case 3:
                 if(!alum.VerPreInscrip()){
                     std::cout<<"No hay ninguna pre-inscripcion\n";
@@ -214,26 +236,34 @@ void menuAlumno(Alumno &alum){
 }
 
 
-void menuDirector_Acad(Director_acad &dir){
-    std::cout<<"Bienvenido de vuelta "<<dir.GetCorreo()<<"\n";
+void menuDirector_Acad(Director_Acad &dir){
+    std::string nombre= dir.GetCorreo();
+    nombre.erase(nombre.length()-7);
+    std::cout<<"\nBienvenido de vuelta "<<nombre<<"\n";
     int valor_entrada=0;
     while(valor_entrada!=3){
+        std::cout<<"\n|                       MENU INICIAL                      |\n";
+        std::cout<<"|---------------------------------------------------------|\n";
         std::cout<<"Seleccione una opcion:\n 1. Ver actividades academicas sin confirmar\n";
-        std::cout<<" 2. Confirmar y enviar actividad academica\n 3. Confirmar pago\n 4. Salir\n";
+        std::cout<<" 2. Confirmar y enviar actividad academica\n 3. Confirmar inscripcion\n 4. |<- SALIR\n";
         std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
-                dir.VerActPen();
+                if(!dir.VerActPen()){
+                    std::cout<<"No hay actividades pendientes de confirmar\n";
+                }
                 break;
             case 2:
                 int id_act;
                 std::cout<<"Seleccione el id de la actividad a confirmar: \n";
                 std::cin>>id_act;
-                if(dir.ConfirmarAct(int id_act)){
-                    std::cout<<"Actividad confirmada con exito\n";
+                if(dir.ConfirmarAct(id_act)){
+                    if(dir.EnviarAct(id_act)){
+                        std::cout<<"Actividad enviada y confirmada correctamente\n";
+                    }
                 }
                 else{
-                    std::cout<<"Error al confirmar la actividad\n";
+                    std::cout<<"Error al confirmar la actividad, no existe la actividad en Actividades Pendientes.\n";
                 }
                 break;
             case 3:
@@ -250,29 +280,48 @@ void menuDirector_Acad(Director_acad &dir){
 
 
 void menuOrganizador(Organizador &org){
-    std::cout<<"Bienvenido de vuelta "<<org.GetCorreo()<<"\n";
+    std::string nombre= org.GetCorreo();
+    nombre.erase(nombre.length()-7);
+    std::cout<<"\nBienvenido de vuelta "<<nombre<<"\n";
     int valor_entrada=0;
-    while(valor_entrada!=4){
-        std::cout<<"Seleccione una opcion:\n 1. Crear actividad academica nueva\n";
-        std::cout<<" 2. Ver actividades academicas creadas sin confirmar\n 3. Ver actividades academicas enviadas\n";
-        std::cout<<" 4. Salir\n";
+    while(valor_entrada!=5){
+        std::cout<<"\n|                       MENU INICIAL                      |\n";
+        std::cout<<"|---------------------------------------------------------|\n";
+        std::cout<<"\nSeleccione una opcion:\n 1. Crear actividad academica nueva\n";
+        std::cout<<" 2. Ver actividades academicas creadas sin confirmar\n 3. Modificar actividad sin confirmar\n";
+        std::cout<<" 4. Ver actividades academicas enviadas y confirmadas\n 5. |<- SALIR\n";
         std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
                 org.CrearActAcademica();
+                std::cout<<"Actividad creada de manera correcta\n";
                 break;
             case 2:
-                org.VerActAcademicasNoConf();
+                if(!org.VerActAcademicasNoConf()){
+                    std::cout<<"                     No hay ninguna actividad pendiente de confirmar\n";
+                }
                 break;
             case 3:
-                org.VerActAcademicasConf();
+                int id_act;
+                std::cout<<"Escriba la actividad que quiere editar: ";
+                std::cin>>id_act;
+                if(!org.ModificarActAcademica(id_act)){
+                    std::cout<<"Error al intentar modificar la actividad\n";
+                }
+                else{
+                    std::cout<<"Actividad modificada de manera correcta\n";
+                }
                 break;
             case 4:
+                if(!org.VerActAcademicasConf()){
+                    std::cout<<"                   No hay ninguna actividad confirmada y enviada\n";
+                }
+                break;
+            case 5:
                 std::cout<<"Saliendo del programa\n";
                 break;
             default:
                 std::cout<<"Ha escrito un valor incorrecto, vuelva a intentarlo\n";
         }
     }
-
 }

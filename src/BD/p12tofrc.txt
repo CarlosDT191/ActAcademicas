@@ -1,3 +1,1 @@
 |ACT.ACAD| TITULO | ESTADO |
-|3|Divulgacion_ciencia_computadores|inscrito_en_espera|
-|5|Explicacion_de_ramas|inscrito|

@@ -15,15 +15,15 @@ public:
     //Constructor
     Director_Acad(std::string correo, std::string password);
     // Función para ver todas las actividades pendientes en "comunicacion.txt"
-    void VerActPen();
+    bool VerActPen();
     // Funcion eliminar act acad
     bool ConfirmarAct(int id_act);
     //Funcion para ver solicitudes
     bool VerSolicitudes(std::string correo);
     //Función para confimar inscripción
-    void ConfirmarInscripcion(std::string correo, int id_act);
-    /*
-    bool EnviarAct(int id_act);*/
+    bool ConfirmarInscripcion(std::string correo, int id_act);
+    //Envia los correos a todos los usuarios una vez confirmada la actividad
+    bool EnviarAct(int id_act);
 };
 
 #endif

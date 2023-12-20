@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdirector_acad.a CMakeFiles/director_acad.dir/director_acad.cc.o
+/usr/bin/ranlib libdirector_acad.a

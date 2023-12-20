@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 Organizador::Organizador(std::string correo, std::string password){
     SetCorreo(correo);
@@ -17,7 +18,7 @@ void Organizador::CrearActAcademica()
 {
     Act_academica a1;
     a1.SetId();
-    a1.RellenarDatosT();
+    a1.RellenarDatosT(0);
     //Imprime en el fichero de "Comunicación.txt"
     a1.ImprimirFCom();
 }
@@ -25,9 +26,27 @@ void Organizador::CrearActAcademica()
 bool Organizador::ModificarActAcademica(int id_act)
 {
     Act_academica a1(id_act);
-    a1.RellenarDatosT();
-    bool var = a1.ModificarActFCom();
-    return var;
+    std::ifstream DataCom("src/BD/comunicacion.txt");
+    std::string linea, id_str;
+    bool fnd= false;
+    std::getline(DataCom,linea);
+    while(std::getline(DataCom,linea)){
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::getline(ss,id_str,'|');
+        int id= std::stoi(id_str);
+        if(id==id_act){
+            fnd= true;
+        }
+    }
+
+    if(fnd){
+        a1.RellenarDatosFCom(id_act);
+        a1.RellenarDatosT(1);
+        fnd = a1.ModificarActFCom();
+    }
+
+    return fnd;
 }
 
 //Lee las actividades académicas confirmadas

@@ -1,4 +1,12 @@
 add_library(app app.cc app.h)
 target_include_directories(app PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_link_libraries(app PUBLIC usuario)
+target_link_libraries(app PUBLIC alumno)
+target_link_libraries(app PUBLIC director_acad)
+target_link_libraries(app PUBLIC organizador)
+target_link_libraries(app PUBLIC act_academica)
+target_link_libraries(app PUBLIC mailing)
+target_link_libraries(app PUBLIC lista_asistencia)
+
 add_executable(app-main app-main.cc)
 target_link_libraries(app-main PUBLIC app)

@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/mailing-main.dir/mailing-main.cc.o" -o mailing-main  libmailing.a ../usuarios/alumno/libalumno.a ../lista_asistencia/liblista_asistencia.a ../usuarios/alumno/libalumno.a ../lista_asistencia/liblista_asistencia.a ../act_academica/libact_academica.a ../usuarios/usuario/libusuario.a 

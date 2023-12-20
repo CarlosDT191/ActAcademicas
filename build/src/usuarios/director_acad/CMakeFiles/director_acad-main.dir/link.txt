@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/director_acad-main.dir/director_acad-main.cc.o" -o director_acad-main  libdirector_acad.a ../../mailing/libmailing.a ../../lista_asistencia/liblista_asistencia.a ../alumno/libalumno.a ../../lista_asistencia/liblista_asistencia.a ../alumno/libalumno.a ../../act_academica/libact_academica.a ../usuario/libusuario.a 
