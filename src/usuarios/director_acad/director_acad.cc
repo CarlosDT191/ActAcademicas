@@ -2,6 +2,7 @@
 #include "usuario.h"
 #include "act_academica.h"
 #include "lista_asistencia.h"
+#include "mailing.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -148,4 +149,9 @@
         // Añadir al alumno en listaasistencia.txt
         Lista_asistencia l1;
         l1.AnadirAlumno(id_act, correo_dominio);
-    }  
+    }
+  
+/*
+bool Director_Acad::EnviarAct(int id_act){
+    Mailing M;
+}*/

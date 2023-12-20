@@ -1,5 +1,3 @@
 |ACT.ACAD| TITULO | ESTADO |
-|1|Charla_ERASMUS|preinscrito|
 |3|Divulgacion_ciencia_computadores|inscrito_en_espera|
 |5|Explicacion_de_ramas|inscrito|
-|6|Salidas_informatica|preinscrito|
