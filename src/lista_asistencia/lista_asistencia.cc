@@ -44,6 +44,11 @@ bool Lista_asistencia::AnadirAlumno(int id_act, std::string correo){
     aforo_restante_--;
     vec_alum_.push_back(correo);
 
+    if(aforo_restante_<0){
+        std::cout<<"AFORO COMPLETO, no se puede inscribir mas usuarios a esta actividad\n";
+        return false;
+    }
+
     std::ifstream ListData("src/BD/ListaAsistencia.txt");
     std::ofstream DataAux("src/BD/aux.txt");
     std::string linea;

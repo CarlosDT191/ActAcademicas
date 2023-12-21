@@ -1,2 +1,0 @@
-/usr/bin/ar qc liborganizador.a CMakeFiles/organizador.dir/organizador.cc.o
-/usr/bin/ranlib liborganizador.a

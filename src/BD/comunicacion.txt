@@ -1,3 +1,5 @@
 |ID|     TITULO    |             PONENTES             | FECHA  |  UBICACION  |  PRECIO  |AFORO|CARRERA|
-|1|Charla_Erasmus|Oscar_Manuel Maria_Gutierrez |16/10/2023|Rabanales_Aula_Magna|3.5|10|todas|
 |2|Explicacion_salidas|Eustaquio_Gonzalez |10/02/2024|Rabanales_Aula_P10|0|5|informatica|
+|3|Divulgacion_ciencia_computadores|Jeff_Bezos |12/02/2024|Rabanales_Aula_Magna|5|2|informatica|
+|4|Introduccion_Universidad|Marta_Campos Anabel_Torres |02/08/2024|Aulario_Averroes_B10|0.5|4|todas|
+|5|Introduccion_al_motor|Joan_Gonzalez |10/08/2024|Rabanales_Aulario_Averroes_B10|0.5|3|mecanica|

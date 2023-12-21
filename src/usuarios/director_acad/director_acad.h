@@ -24,6 +24,8 @@ public:
     bool ConfirmarInscripcion(std::string correo, int id_act);
     //Envia los correos a todos los usuarios una vez confirmada la actividad
     bool EnviarAct(int id_act);
+    //Muestra por pantalla las actividades academicas confirmadas
+    bool VerActConf();
 };
 
 #endif

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmailing.a CMakeFiles/mailing.dir/mailing.cc.o
-/usr/bin/ranlib libmailing.a
