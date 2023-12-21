@@ -1,1 +1,0 @@
-/usr/bin/c++ "CMakeFiles/organizador-main.dir/organizador-main.cc.o" -o organizador-main  liborganizador.a ../../act_academica/libact_academica.a ../usuario/libusuario.a 

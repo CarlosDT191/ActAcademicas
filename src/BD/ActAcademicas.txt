@@ -1,1 +1,2 @@
 |ID|     TITULO    |             PONENTES             | FECHA  |  UBICACION  |  PRECIO  |AFORO|CARRERA|
+|1|Charla_Erasmus|Oscar_Manuel Maria_Gutierrez |16/10/2023|Rabanales_Aula_Magna|3.5|10|todas|

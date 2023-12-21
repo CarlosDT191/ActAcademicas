@@ -4,5 +4,9 @@
 |i22lumas@uco.es|juanmaventeya|1|informatica|
 |e22calod@uco.es|cuentanueva|1|electronica|
 |f22paror@uco.es|password123|1|forestal|
-|dirmatof@uco.es|directorsoy|2|nada|
-|orgmajog@uco.es|organizadorsoy|3|nada|
+|direct01@uco.es|directorsoy|2|nada|
+|organi01@uco.es|organizadorsoy|3|nada|
+|p22goprf@uco.es|soyotromas|1|mecanica|
+|e32laber@uco.es|soydeaqui|1|electronica|
+|f22polas@uco.es|contrasena123|1|forestal|
+|i32tuprb@uco.es|123456|1|informatica|
