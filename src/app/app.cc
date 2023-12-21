@@ -65,13 +65,10 @@ void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
         switch(valor){
             case 1:
                 alum.CambiarEstado(1, id_act);//NADA --->PREINSCRITO
-                valor=3;
             case 2:
-                valor++;
                 break;
             default:
-                std::cout<<"Valor introducido incorrecto, saliendo de acceder a una actividad academica\n";
-                valor= 3;
+                std::cout<<"Valor introducido incorrecto, volviendo al menu inicial\n";
         }
     }
 
@@ -82,10 +79,6 @@ void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
             case 1:
                 if(alum.CambiarEstado(0, id_act)){//PREINSCRITO ---> NADA
                     std::cout<<"Estado cambiado correctamente\n";
-                    valor=3;
-                }
-                else{
-                    valor=3;
                 }
                 break;
             case 2:
@@ -93,21 +86,16 @@ void MenuDetalleAct(std::string estado, Alumno &alum, int id_act){
                     std::cout<<"Estado cambiado correctamente\n";
                     valor=3;
                 }
-                else{
-                    valor=3;
-                }
                 break;
             case 3:
                 break;
             default:
                 std::cout<<"Valor introducido incorrecto, volviendo al menu inicial\n";
-                valor= 3;
         }
     }
 
     else{
         std::cout<<"No se puede cambiar estado en esta actividad, volviendo al menu inicial\n";
-        valor= 3;
     }
 }
 
