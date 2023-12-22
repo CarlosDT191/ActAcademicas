@@ -1,4 +1,5 @@
 #include "act_academica.h"
+#include "lista_asistencia.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -272,17 +273,24 @@ bool Act_academica::ModificarActFCom(){
 }
 
 void Act_academica::ImprimirDatos(){
-    std::cout<<"\nACT ACADEMICA ID= "<<id_<<"\n";
-    std::cout<<"TITULO: "<<titulo_<<"\n";
-    std::cout<<"PONENTES: ";
+    std::cout<<"\n  ACT ACADEMICA ID= "<<id_<<"\n";
+    std::cout<<"  TITULO: "<<titulo_<<"\n";
+    std::cout<<"  PONENTES: ";
     for(auto j : ponentes_){
         std::cout<<j<<" ";
     }
-    std::cout<<"\nFECHA: "<<fecha_<<"\n";
-    std::cout<<"UBICACION: "<<ubicacion_<<"\n";
-    std::cout<<"PRECIO: "<<precio_<<"\n";
-    std::cout<<"AFORO: "<<aforomax_<<"\n";
-    std::cout<<"CARRERA: "<<carrera_<<"\n\n";
+    std::cout<<"\n  FECHA: "<<fecha_<<"\n";
+    std::cout<<"  UBICACION: "<<ubicacion_<<"\n";
+    std::cout<<"  PRECIO: "<<precio_<<"\n";
+    std::cout<<"  AFORO: "<<aforomax_<<"\n";
+    std::cout<<"  CARRERA: "<<carrera_<<"\n";
+    Lista_asistencia l1;
+    l1.RecogerListaAct(id_);
+    std::cout<<"  INSCRITOS: ";
+    for(auto i : l1.GetInscritos()){
+        std::cout<<i<<" ";
+    }
+    std::cout<<"\n\n";
 }
 
 bool Act_academica::EliminarActCom(int id_act){

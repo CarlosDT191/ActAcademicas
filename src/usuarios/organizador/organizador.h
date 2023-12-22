@@ -19,7 +19,9 @@ class Organizador : public Usuario{
         bool VerActAcademicasConf();
 
         bool VerActAcademicasNoConf();
-        };
+
+        bool EliminarActFCom(int id_act);
+};
 
 
 #endif
