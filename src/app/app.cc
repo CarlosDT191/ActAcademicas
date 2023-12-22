@@ -309,7 +309,7 @@ void menuOrganizador(Organizador &org){
                 break;
             case 3:
                 int id_act_mod;
-                std::cout<<"Escriba la actividad que quiere eliminar: ";
+                std::cout<<"Escriba la actividad que quiere modificar: ";
                 std::cin>>id_act_mod;
                 if(!org.ModificarActAcademica(id_act_mod)){
                     std::cout<<"Error al intentar modificar la actividad\n";
@@ -320,7 +320,7 @@ void menuOrganizador(Organizador &org){
                 break;
             case 4:
                 int id_act_el, volver;
-                std::cout<<"Escriba la actividad que quiere editar: ";
+                std::cout<<"Escriba la actividad que quiere eliminar: ";
                 std::cin>>id_act_el;
                 std::cout<<"¿Está seguro?\n 1. Si\n 2. No, volver al menu inicial\n";
                 std::cin>>volver;
