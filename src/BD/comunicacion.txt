@@ -1,3 +1,4 @@
 |ID|     TITULO    |             PONENTES             | FECHA  |  UBICACION  |  PRECIO  |AFORO|CARRERA|
 |2|Explicacion_salidas|Eustaquio_Gonzalez |10/02/2024|Rabanales_Aula_P10|0|5|informatica|
 |3|Divulgacion_ciencia_computadores|Jeff_Bezos |12/02/2024|Rabanales_Aula_Magna|5|2|informatica|
+|8|Charla_sobre_computadores|Carlos_Marinez Ana_Bono |16/04/2023|Rabanales_Aula_Magna|2.5|100|informatica|
