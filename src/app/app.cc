@@ -290,17 +290,17 @@ void menuOrganizador(Organizador &org){
     nombre.erase(nombre.length()-7);
     std::cout<<"\n               Bienvenido de vuelta "<<nombre<<"\n";
     int valor_entrada=0;
-    while(valor_entrada!=5){
+    while(valor_entrada!=6){
         std::cout<<"\n|                       MENU INICIAL                      |\n";
         std::cout<<"|---------------------------------------------------------|\n";
         std::cout<<"\nSeleccione una opcion:\n 1. Crear actividad academica nueva\n";
         std::cout<<" 2. Ver actividades academicas creadas sin confirmar\n 3. Modificar actividad sin confirmar\n";
-        std::cout<<" 4. Ver actividades academicas enviadas y confirmadas\n 5. |<- SALIR\n";
+        std::cout<<" 4. Eliminar actividad sin confirmar\n 5. Ver actividades academicas enviadas y confirmadas\n 6. |<- SALIR\n";
         std::cin>>valor_entrada;
         switch(valor_entrada){
             case 1:
                 org.CrearActAcademica();
-                std::cout<<"Actividad creada de manera correcta\n";
+                std::cout<<"Actividad creada de correctamente\n";
                 break;
             case 2:
                 if(!org.VerActAcademicasNoConf()){
@@ -308,10 +308,10 @@ void menuOrganizador(Organizador &org){
                 }
                 break;
             case 3:
-                int id_act;
-                std::cout<<"Escriba la actividad que quiere editar: ";
-                std::cin>>id_act;
-                if(!org.ModificarActAcademica(id_act)){
+                int id_act_mod;
+                std::cout<<"Escriba la actividad que quiere eliminar: ";
+                std::cin>>id_act_mod;
+                if(!org.ModificarActAcademica(id_act_mod)){
                     std::cout<<"Error al intentar modificar la actividad\n";
                 }
                 else{
@@ -319,11 +319,26 @@ void menuOrganizador(Organizador &org){
                 }
                 break;
             case 4:
+                int id_act_el, volver;
+                std::cout<<"Escriba la actividad que quiere editar: ";
+                std::cin>>id_act_el;
+                std::cout<<"¿Está seguro?\n 1. Si\n 2. No, volver al menu inicial\n";
+                std::cin>>volver;
+                if(volver==1){
+                    if(!org.EliminarActFCom(id_act_el)){
+                        std::cout<<"Error al intentar modificar la actividad\n";
+                    }
+                    else{
+                        std::cout<<"Actividad modificada de manera correcta\n";
+                    }
+                }
+                break;
+            case 5:
                 if(!org.VerActAcademicasConf()){
                     std::cout<<"                   No hay ninguna actividad confirmada y enviada\n";
                 }
                 break;
-            case 5:
+            case 6:
                 std::cout<<"Saliendo del programa\n";
                 break;
             default:

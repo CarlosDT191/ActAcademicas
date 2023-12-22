@@ -1,2 +1,4 @@
 |ACT.ACAD| TITULO | ESTADO |
 |1|Charla_Erasmus|inscrito|
+|5|Introduccion_al_motor|inscrito|
+|7|Ponencia_sobre_motor|inscrito_en_espera|

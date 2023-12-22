@@ -1,2 +1,5 @@
 |ID|     TITULO    |             PONENTES             | FECHA  |  UBICACION  |  PRECIO  |AFORO|CARRERA|
 |1|Charla_Erasmus|Oscar_Manuel Maria_Gutierrez |16/10/2023|Rabanales_Aula_Magna|3.5|10|todas|
+|6|Ponencia_sobre_ordenadores|Ana_Gutierrez |10/03/2024|Rabanales_Aula_Magna|1.5|50|informatica|
+|5|Introduccion_al_motor|Joan_Gonzalez |10/08/2024|Rabanales_Aulario_Averroes_B10|0.5|3|mecanica|
+|7|Ponencia_sobre_motor|Marcos_Antonio |12/02/2024|Rabanales_Aula_Magna|1.5|100|mecanica|

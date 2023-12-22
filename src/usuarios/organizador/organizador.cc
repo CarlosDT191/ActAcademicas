@@ -108,3 +108,28 @@ bool Organizador::VerActAcademicasNoConf() {
         return false;
     }
 }
+
+
+bool Organizador::EliminarActFCom(int id_act)
+{
+    Act_academica a1(id_act);
+    std::ifstream DataCom("src/BD/comunicacion.txt");
+    std::string linea, id_str;
+    bool fnd= false;
+    std::getline(DataCom,linea);
+    while(std::getline(DataCom,linea)){
+        std::istringstream ss(linea);
+        ss.ignore(1);
+        std::getline(ss,id_str,'|');
+        int id= std::stoi(id_str);
+        if(id==id_act){
+            fnd= true;
+        }
+    }
+
+    if(fnd){
+        fnd= a1.EliminarActCom(id_act);
+    }
+
+    return fnd;
+}

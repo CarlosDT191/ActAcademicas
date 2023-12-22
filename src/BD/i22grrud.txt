@@ -1,2 +1,3 @@
 |ACT.ACAD| TITULO | ESTADO |
-|1|Charla_Erasmus|inscrito_en_espera|
+|1|Charla_Erasmus|inscrito|
+|6|Ponencia_sobre_ordenadores|inscrito_en_espera|

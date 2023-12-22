@@ -1,2 +1,5 @@
 |ACT|AFORO RESTANTE|       INSCRITOS       |
-|1|8| p12tofrc@uco.es f22paror@uco.es |
+|1|7| p12tofrc@uco.es f22paror@uco.es i22grrud@uco.es |
+|6|50| |
+|5|2| p12tofrc@uco.es |
+|7|100| |
